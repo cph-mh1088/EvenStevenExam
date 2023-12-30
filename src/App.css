@@ -89,7 +89,7 @@ footer {
 
 .add-expense-button {
   background-color: #4caf50; /* Grøn baggrundsfarve */
-  color: white; /* Hvid tekstfarve */
+  color: white;
   padding: 10px 20px; /* Lidt polstring for et mere behageligt udseende */
   font-size: 16px; /* Juster skriftstørrelsen efter behov */
   border: none; /* Fjern grænsen for et renere udseende */
