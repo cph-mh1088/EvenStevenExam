@@ -1,4 +1,4 @@
-import "/Users/mikkel/Documents/GitHub/EvnStvn/EvnStvn/src/App.css";
+import App from "/src/App.css";
 import { Outlet } from "react-router-dom";
 import Header from "../components/pages/Header";
 

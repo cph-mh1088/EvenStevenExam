@@ -1,4 +1,4 @@
-import "/Users/mikkel/Documents/GitHub/EvnStvn/EvnStvn/src/App.css";
+import App from "/src/App.css";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 

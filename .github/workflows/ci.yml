@@ -25,4 +25,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/even-steven-exam:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/evenstevenexam:latest
