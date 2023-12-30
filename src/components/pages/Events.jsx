@@ -1,7 +1,7 @@
 import eventFacade from "/src/facade/eventFacade.jsx";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import App from "/src/App.css";
+import "../../App.css";
 
 const Events = () => {
   const [events, setEvents] = useState([]);
