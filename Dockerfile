@@ -1,6 +1,6 @@
 # First stage: build the react app
 # FROM tiangolo/node-frontend:10 as build-stage
-FROM node:18-alpine as build-stage
+FROM node:14-alpine as build-stage
 WORKDIR /app
 COPY package*.json /app/
 RUN npm install
