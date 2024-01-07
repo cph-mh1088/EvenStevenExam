@@ -1,7 +1,7 @@
 #root {
   max-width: 70%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1%;
   text-align: center;
 }
 
@@ -23,8 +23,9 @@
 
 .header {
   top: 0;
-  position: fixed;
   cursor: pointer;
+  text-align: left;
+  width: 5%; /* bad fix - but makes sure that only the text is clickable*/
 }
 
 .blue-text {
@@ -32,7 +33,7 @@
 }
 
 body {
-  padding-top: 60px;
+  padding-top: 1%;
 }
 
 footer {
@@ -48,25 +49,25 @@ footer {
 #amountInput,
 #descriptionInput {
   width: 100%;
-  padding: 10px;
+  padding: 1%;
   border: 2px solid black;
-  border-radius: 10px;
   background-color: white;
+  border-radius: 10px;
   color: black;
 }
 
 .expense-item {
-  margin-bottom: 5px;
-  padding: 10px;
-  border-radius: 5px;
+  margin-bottom: 1%;
+  padding: 1%;
+  border-radius: 1%;
   border-top: 2px dashed black;
 }
 
 .add-expense-button {
   background-color: #4caf50;
   color: white;
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 1%;
+  font-size: 100%;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -85,16 +86,15 @@ footer {
 .total-amount-bar {
   width: 100%;
   border: 2px solid black;
-  margin-top: 20px;
-  padding: 10px;
+  padding: 1%;
   border-radius: 10px;
 }
 
 .add-event-button {
   background-color: #4caf50;
   color: white;
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 1%;
+  font-size: 100%;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -110,20 +110,20 @@ footer {
 .Events-body {
   width: 100%;
   border: 2px solid black;
-  margin-top: 20px;
-  padding: 10px;
-  border-radius: 10px;
+  margin-top: 1%;
+  padding: 1%;
+  border-radius: 1%;
 }
 
 .Event-row {
-  margin-bottom: 10px; /* Tilføj lidt mellemrum mellem hver række */
+  margin-bottom: 1%; /* Tilføj lidt mellemrum mellem hver række */
 }
 
 .event-link {
   display: block;
   width: 100%; /* Fyld hele bredden af forældreelementet */
-  padding-bottom: 5px;
-  padding-top: 5px;
+  padding-bottom: 1%;
+  padding-top: 1%;
   color: #000;
   transition: background-color 0.3s ease;
 }
@@ -137,10 +137,10 @@ footer {
 .split-button {
   background-color: #4caf50;
   color: white;
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 1%;
+  font-size: 100%;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -152,7 +152,7 @@ footer {
 .Events-table td,
 .EventDetails-table td {
   width: 100%;
-  padding: 10px;
+  padding: 1%;
   border: 2px solid black;
   border-radius: 10px;
   color: black;
