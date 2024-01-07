@@ -1,3 +1,6 @@
+// global - made to showcase. Used in Header.jsx
+window.testId = 2;
+
 function eventFacade() {
   let events = [
     {
@@ -11,7 +14,7 @@ function eventFacade() {
     },
   ];
 
-  let nextId = 2;
+  let nextId = testId;
 
   const getEvents = () => {
     return events;

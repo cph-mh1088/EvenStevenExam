@@ -1,32 +1,25 @@
 #root {
   max-width: 70%;
-  margin: 0 auto; /* center content */
-  padding: 2rem; /* add some space around content */
-  text-align: center; /* center text */
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
 /* <!--   media queries   --> */
 @media only screen and (max-width: 600px) {
-  /* CSS-regler her gælder kun, når skærmens bredde er 600 pixels eller mindre */
   body {
     background-color: lightblue;
   }
 }
 
 @media only screen and (max-height: 500px) {
-  /* CSS-regler her gælder kun, når skærmens højde er 500 pixels eller mindre */
   main {
-    overflow-y: scroll; /* Tilføj en lodret rullebjælke, hvis indholdet er for langt */
-    max-height: 300px; /* Begræns højden af main for at undgå at fylde hele skærmen */
+    overflow-y: scroll; /* scrollbar */
   }
   body {
     background-color: red;
   }
 }
-
-/* <---   grid    ---> */
-
-/* Header */
 
 .header {
   top: 0;
@@ -38,33 +31,15 @@
   color: #00aef3;
 }
 
-/* body */
-
 body {
-  margin: 0;
-  /* display: grid; */ /* fucks up the width atm */
-  grid-template-rows: auto 1fr auto; /* Header, Main, Footer */
-  grid-template-columns: 1fr; /* Én kolonne, der fylder hele bredden */
-  min-height: 100vh; /* Sørg for, at grid-container fylder hele skærmen */
   padding-top: 60px;
 }
 
-/* Main */
-/* main {
-} */
-
-/* Footer styling */
 footer {
-  background-color: #eff7fc; /* En lysere nuance af blå */
+  background-color: #eff7fc;
   padding: 1rem;
   text-align: center;
   width: 100%;
-}
-
-.flex-container-admin {
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
 }
 
 /* <!--   /   --> */
@@ -88,22 +63,22 @@ footer {
 }
 
 .add-expense-button {
-  background-color: #4caf50; /* Grøn baggrundsfarve */
+  background-color: #4caf50;
   color: white;
-  padding: 10px 20px; /* Lidt polstring for et mere behageligt udseende */
-  font-size: 16px; /* Juster skriftstørrelsen efter behov */
-  border: none; /* Fjern grænsen for et renere udseende */
-  border-radius: 5px; /* Rundede hjørner for et mere moderne look */
-  cursor: pointer; /* Vis cursor som en pegefinger for at angive, at det er klikbart */
-  transition: background-color 0.3s ease; /* Glat farveovergang ved hover */
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .add-expense-button:hover {
-  background-color: #45a049; /* Mørkere grøn farve ved hover */
+  background-color: #45a049;
 }
 
 .expense-list {
-  list-style-type: none;
+  list-style-type: none; /* Fjern punkttegnene */
   padding: 0;
 }
 
@@ -116,18 +91,18 @@ footer {
 }
 
 .add-event-button {
-  background-color: #4caf50; /* Grøn baggrundsfarve */
-  color: white; /* Hvid tekstfarve */
-  padding: 10px 20px; /* Lidt polstring for et mere behageligt udseende */
-  font-size: 16px; /* Juster skriftstørrelsen efter behov */
-  border: none; /* Fjern grænsen for et renere udseende */
-  border-radius: 5px; /* Rundede hjørner for et mere moderne look */
-  cursor: pointer; /* Vis cursor som en pegefinger for at angive, at det er klikbart */
-  transition: background-color 0.3s ease; /* Glat farveovergang ved hover */
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .add-event-button:hover {
-  background-color: #45a049; /* Mørkere grøn farve ved hover */
+  background-color: #45a049;
 }
 
 /* <!--   /begivenheder   --> */
@@ -149,29 +124,29 @@ footer {
   width: 100%; /* Fyld hele bredden af forældreelementet */
   padding-bottom: 5px;
   padding-top: 5px;
-  color: #000; /* Ændre farven på linket */
-  transition: background-color 0.3s ease; /* Glat farveovergang ved hover */
+  color: #000;
+  transition: background-color 0.3s ease;
 }
 
 .event-link:hover {
-  background-color: #e0e0e0; /* Ændre baggrundsfarve ved hover */
+  background-color: #e0e0e0;
 }
 
 /* <!--   /begivenhder/begivenhed/{id}   --> */
 
 .split-button {
-  background-color: #4caf50; /* Grøn baggrundsfarve */
-  color: white; /* Hvid tekstfarve */
-  padding: 10px 20px; /* Lidt polstring for et mere behageligt udseende */
-  font-size: 16px; /* Juster skriftstørrelsen efter behov */
-  border: none; /* Fjern grænsen for et renere udseende */
-  border-radius: 5px; /* Rundede hjørner for et mere moderne look */
-  cursor: pointer; /* Vis cursor som en pegefinger for at angive, at det er klikbart */
-  transition: background-color 0.3s ease; /* Glat farveovergang ved hover */
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .split-button:hover {
-  background-color: #45a049; /* Mørkere grøn farve ved hover */
+  background-color: #45a049;
 }
 
 .Events-table td,

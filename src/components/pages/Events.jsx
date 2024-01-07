@@ -1,29 +1,33 @@
-import eventFacade from "/src/facade/eventFacade.jsx";
+import eventFacade from "/src/facade/eventFacade.js";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "../../App.css";
 
 const Events = () => {
   const [events, setEvents] = useState([]);
-  const [error, setError] = useState(null); // Ny fejltilstand
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    // async function
     const fetchEvents = async () => {
       try {
+        // wait for completion of promise? (promise returned from getEvents)
+        // 'await' should still be working without a promise
         const fetchedEvents = await eventFacade.getEvents();
         setEvents(fetchedEvents);
       } catch (error) {
-        setError("Fejl ved hentning af begivenheder"); // Vis fejlbesked
+        setError("Fejl ved hentning af begivenheder");
         console.error("Fejl ved hentning af begivenheder:", error);
       }
     };
 
+    // call async function
     fetchEvents();
-  }, []); // Tomt array som andet argument til useEffect. Kører kun ved mount
+  }, []); // only at mount
 
   return (
-    <div>
-      <main>
+    <div className="flex-container">
+      <main className="flex-items">
         <br></br>
         <h2>Begivenheder</h2>
         {error ? (
@@ -33,10 +37,7 @@ const Events = () => {
             <div className="Events-body">
               {events.map((event) => (
                 <div key={event.id} className="Event-row">
-                  <Link
-                    to={`/begivenheder/begivenhed/${event.id}`}
-                    className="event-link"
-                  >
+                  <Link to={`begivenhed/${event.id}`} className="event-link">
                     {event.name}
                   </Link>
                 </div>

@@ -30,10 +30,13 @@ function apiFacade() {
 
     const options = makeOptions("POST", payload);
 
+    // do HTTP request using fetch
     return fetch(URL + AUTHENTICATION_ROUTE, options)
       .then(handleHttpErrors)
       .then((json) => {
+        // if successfull request, call callback as true
         callback(true);
+        // save in local storage
         setToken(json.token);
       })
       .catch((error) => {
@@ -44,6 +47,7 @@ function apiFacade() {
         }
       });
   };
+
   const fetchData = (endpoint, method, payload) => {
     const options = makeOptions(method, payload, true); //True adds the token
     return fetch(URL + endpoint, options).then(handleHttpErrors);

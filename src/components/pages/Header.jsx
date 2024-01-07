@@ -8,6 +8,7 @@ const Header = ({ appName }) => {
 
   const handleHeaderClick = () => {
     navigate("/");
+    console.log(window.testId);
   };
 
   return (

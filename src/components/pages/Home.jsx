@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"; // useState hook. Used to create local state variables in functional components
-import eventFacade from "/src/facade/eventFacade.jsx";
+import eventFacade from "/src/facade/eventFacade.js";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -13,12 +13,11 @@ const Home = () => {
   const [showMessage, setShowMessage] = useState(false); // show message
 
   useEffect(() => {
-    // Use useEffect to hide the message after a certain time (e.g., 3 seconds)
     const timeout = setTimeout(() => {
       setShowMessage(false);
     }, 3000);
 
-    // Clear the timeout when the component unmounts or when showMessage is set to false
+    // Clean up function. Clear the timeout when the component unmounts or when showMessage is set to false
     return () => clearTimeout(timeout);
   }, [showMessage]);
 
@@ -27,7 +26,6 @@ const Home = () => {
   // Amounts
 
   // method that handles changes in the input field for amount
-
   const handleAmountChange = (event) => {
     setAmount(event.target.value);
 
@@ -37,9 +35,8 @@ const Home = () => {
   };
 
   // method that handle adddition of amount and description to the expense list
-  const handleAddAmount = () => {
+  const handleAddExpense = () => {
     // check if the amount is empty
-
     if (amount === "" || description === "") {
       setError("Du skal udfylde både beskrivelse og beløb");
       console.log("Du skal udfylde både beskrivelse og beløb");
@@ -114,8 +111,6 @@ const Home = () => {
       setError("Der skete en fejl ved tilføjelse af begivenhed.");
       console.error("Fejl ved tilføjelse af begivenhed:", error);
     }
-
-    // Opdater evt. UI eller gør andet, du har brug for her
   };
 
   const handleFormSubmit = (event) => {
@@ -159,7 +154,7 @@ const Home = () => {
         <br></br>
         {/* ---   buttons in order   --- */}
         {/* button for adding expense */}
-        <button className="add-expense-button" onClick={handleAddAmount}>
+        <button className="add-expense-button" onClick={handleAddExpense}>
           Tilføj udgift
         </button>
         {/* Vis udgiftslisten */}
@@ -191,13 +186,15 @@ const Home = () => {
           Begivenheder
         </Link>
         {/* Vis fejlmeddelelse hvis der er en fejl */}
-        {showMessage && <p style={{ color: "green" }}>Begivenhed tilføjet!</p>}
+        {showMessage ? (
+          <p style={{ color: "green" }}>Begivenhed tilføjet!</p>
+        ) : null}
         {error && <p style={{ color: "red" }}>{error}</p>}
       </main>
       <br></br>
       <footer>
         <div className="flex-container-admin">
-          <div>
+          <div className="flex-conterin-children">
             <p>kontakt admin på tlf:. 12345678</p>
             <Link to="/login" className="footer-login-link">
               Log ind

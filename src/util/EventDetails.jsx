@@ -1,7 +1,7 @@
-import "/Users/mikkel/Documents/GitHub/EvnStvn/EvnStvn/src/App.css";
+import "../App.css";
 import { useParams } from "react-router-dom";
-import { useState } from "react"; // useState hook. Used to create local state variables in functional components
-import eventFacade from "/src/facade/eventFacade.jsx";
+import { useState } from "react";
+import eventFacade from "/src/facade/eventFacade.js";
 
 const EventDetails = () => {
   const { id } = useParams();
