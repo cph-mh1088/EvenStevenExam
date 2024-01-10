@@ -2,7 +2,6 @@ import "../../App.css";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
-// Header component
 const Header = ({ appName }) => {
   const navigate = useNavigate();
 

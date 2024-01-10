@@ -1,7 +1,5 @@
 // tager en funktion som argument bestående af resolve og reject
 let p = new Promise((resolve, reject) => {
-  // definer hvad promise skal være
-
   let a = 1 + 2;
 
   if (a == 2) {

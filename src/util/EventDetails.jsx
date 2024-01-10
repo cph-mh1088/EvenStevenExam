@@ -10,12 +10,10 @@ const EventDetails = () => {
   const [splitCount, setSplitCount] = useState(1); // number of splits
   const [splitResult, setSplitResult] = useState([]); // split result
 
-  // ---   Splitting  ---
   const handleSplitChange = (newSplitCount) => {
     setSplitCount(newSplitCount);
   };
 
-  // method that handles splitting of total amount
   const handleSplit = () => {
     if (event) {
       // calculate the split amount
