@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react"; // useState hook. Used to create local state variables in functional components
+import { useState, useEffect } from "react";
 import eventFacade from "/src/facade/eventFacade.js";
 import { Link } from "react-router-dom";
 
 const Home = () => {
-  // ---   States  ---
   const [amount, setAmount] = useState(""); // ongoing amount
   const [totalAmount, setTotalAmount] = useState(0); // total amount
   const [description, setDescription] = useState(""); // description of the expense
@@ -22,10 +21,7 @@ const Home = () => {
   }, [showMessage]);
 
   // ---   Methods  ---
-
-  // Amounts
-
-  // method that handles changes in the input field for amount
+  // handle changes in the input field for amount
   const handleAmountChange = (event) => {
     setAmount(event.target.value);
 
@@ -34,7 +30,7 @@ const Home = () => {
     }
   };
 
-  // method that handle adddition of amount and description to the expense list
+  //handle adddition of amount and description to the expense list
   const handleAddExpense = () => {
     // check if the amount is empty
     if (amount === "" || description === "") {
@@ -62,9 +58,7 @@ const Home = () => {
     }
   };
 
-  // ---   Descriptions  ---
-
-  // method that handles changes in the input field for description
+  // handle changes in the input field for description
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
 
@@ -73,8 +67,6 @@ const Home = () => {
       setError(null);
     }
   };
-
-  // ---   Events  ---
 
   const handleAddEvent = () => {
     try {
@@ -90,14 +82,13 @@ const Home = () => {
         return;
       }
 
-      // Opret en ny event-objekt baseret på din nuværende logik
+      // new event object
       const newEvent = {
         name: eventName,
-        expenses: expenseList, // Brug expenseList i stedet for totalAmount
-        // andre relevante felter
+        expenses: expenseList,
       };
 
-      // Tilføj eventet ved hjælp af eventFacade
+      // add event to mock db
       eventFacade.addEvent(newEvent);
       setShowMessage(true);
 
@@ -114,7 +105,7 @@ const Home = () => {
   };
 
   const handleFormSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault(); // prevent page from reloading
     handleAddEvent();
   };
 
@@ -157,9 +148,8 @@ const Home = () => {
         <button className="add-expense-button" onClick={handleAddExpense}>
           Tilføj udgift
         </button>
-        {/* Vis udgiftslisten */}
+        {/* Show expense list */}
         <div>
-          {/* displat the name of the event */}
           <h3>{eventName}</h3>
           <ul className="expense-list">
             {expenseList.map((expense, index) => (
@@ -185,7 +175,7 @@ const Home = () => {
         <Link to="begivenheder" className="event-link">
           Begivenheder
         </Link>
-        {/* Vis fejlmeddelelse hvis der er en fejl */}
+        {/* Show messages */}
         {showMessage ? (
           <p style={{ color: "green" }}>Begivenhed tilføjet!</p>
         ) : null}

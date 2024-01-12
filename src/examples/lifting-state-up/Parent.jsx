@@ -1,21 +1,23 @@
 import React, { useState } from "react";
-import Child from "./Child";
+import Child1 from "./Child1";
+import Child2 from "./Child2";
 
-const Parent = () => {
-  const [count, setCount] = useState(0); // state for counting
+function ParentComponent() {
+  const [sharedCounter, setSharedCounter] = useState(0); // Delt state
 
-  const handleIncrement = () => {
-    setCount(count + 1);
+  const handleCounterChange = (newCounter) => {
+    // Opdater forældrekomponentens tilstand med den delte klikstæller
+    setSharedCounter(newCounter);
   };
 
   return (
     <div>
-      <h2>Parent Component</h2>
-      <p>Count: {count}</p>
-      {/* pass the state and method as props to the child component */}
-      <Child count={count} onIncrement={handleIncrement} />
+      {/* Prop 'onCounterChange' til child1  */}
+      <Child1 onCounterChange={handleCounterChange} />
+      {/* Prop 'sharedCounter' til child2 */}
+      <Child2 sharedCounter={sharedCounter} />
     </div>
   );
-};
+}
 
-export default Parent;
+export default ParentComponent;

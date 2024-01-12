@@ -11,8 +11,6 @@ const Events = () => {
     // async function
     const fetchEvents = async () => {
       try {
-        // wait for completion of promise? (promise returned from getEvents)
-        // 'await' should still be working without a promise
         const fetchedEvents = await eventFacade.getEvents();
         setEvents(fetchedEvents);
       } catch (error) {
@@ -23,7 +21,7 @@ const Events = () => {
 
     // call async function
     fetchEvents();
-  }, []); // only at mount
+  }, []);
 
   return (
     <div className="flex-container">

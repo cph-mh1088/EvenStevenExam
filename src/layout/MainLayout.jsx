@@ -6,7 +6,7 @@ function MainLayout({ appName }) {
   return (
     <div id="main-layout">
       {/* Header component */}
-      <Header appName={appName} /> {/* Send appName videre til Header */}
+      <Header appName={appName} /> {/* Send prop to header */}
       {/* Redering of components */}
       <Outlet />
     </div>

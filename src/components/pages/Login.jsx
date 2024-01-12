@@ -4,7 +4,6 @@ import facade from "../../facade/apiFacade";
 function LogIn() {
   const init = { username: "", password: "" };
 
-  // State hooks for login cred, loginstatus and server data
   const [loginCredentials, setLoginCredentials] = useState(init);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [dataFromServer, setDataFromServer] = useState("Loading...");
@@ -16,7 +15,7 @@ function LogIn() {
 
   // Method to do login and update loginstatus
   const performLogin = (evt) => {
-    evt.preventDefault();
+    evt.preventDefault(); // Prevent page from reloading
     facade.login(
       loginCredentials.username,
       loginCredentials.password,
@@ -34,7 +33,6 @@ function LogIn() {
     });
   };
 
-  // JSX
   return (
     <>
       <div id="login-form-api">

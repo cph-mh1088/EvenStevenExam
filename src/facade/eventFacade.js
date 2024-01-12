@@ -34,13 +34,10 @@ function eventFacade() {
       nextId++;
       events.push(event);
 
-      // Beregn det samlede beløb for udgifterne i den nye begivenhed
-
       // Array of expenses reduced to a single value
       const totalExpenseAmount = event.expenses.reduce(
         // acc = accumulator starting at 0
         // expense = current value
-
         (acc, expense) => acc + parseFloat(expense.amount),
         0 // Initial value of the accumulator
       );
@@ -49,13 +46,10 @@ function eventFacade() {
         throw new Error("Ugyldigt beløb for en udgift");
       }
 
-      // Gem det samlede beløb for udgifterne som totalAmount for begivenheden
       event.totalAmount = parseFloat(totalExpenseAmount.toFixed(2));
     } catch (error) {
       console.error("Fejl ved tilføjelse af begivenhed:", error);
-      // Kast fejlen videre, så den kan håndteres i komponenten, der kalder addEvent
-      // da fejlen er forbundet med brugerinput
-      throw error; // Kast fejlen videre, så den kan håndteres i komponenten, der kalder addEvent
+      throw error; // Rethrow error to whoever called addEvent
     }
   };
 

@@ -16,17 +16,16 @@ const EventDetails = () => {
 
   const handleSplit = () => {
     if (event) {
-      // calculate the split amount
       const splitAmount = event.totalAmount / splitCount;
 
       // create an array with each person's share
       const result = Array.from({ length: splitCount }, (_, index) => ({
+        // '_' is a placeholder for the value. Represents the number of persons
         // map over the array and create an object for each person
         person: `Person ${index + 1}`,
-        share: splitAmount.toFixed(2), // set the share amount to 2 decimal places
+        share: splitAmount.toFixed(2),
       }));
 
-      // update the split result state
       setSplitResult(result);
     }
   };
@@ -52,7 +51,6 @@ const EventDetails = () => {
             onChange={(e) => handleSplitChange(parseInt(e.target.value) || 1)}
           />
         </div>
-        {/* Button for splitting the total amount */}
         <br></br>
         <br></br>
         <button onClick={handleSplit} className="split-button">

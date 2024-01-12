@@ -7,15 +7,15 @@
 
 /* <!--   media queries   --> */
 @media only screen and (max-width: 600px) {
+  main {
+    overflow-y: scroll; /* scrollbar */
+  }
   body {
     background-color: lightblue;
   }
 }
 
 @media only screen and (max-height: 500px) {
-  main {
-    overflow-y: scroll; /* scrollbar */
-  }
   body {
     background-color: red;
   }
