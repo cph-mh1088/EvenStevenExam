@@ -67,7 +67,6 @@ function apiFacade() {
     if (payload) {
       opts.body = JSON.stringify(payload);
     }
-
     return opts;
   };
 

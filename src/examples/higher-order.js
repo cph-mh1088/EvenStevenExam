@@ -18,4 +18,4 @@ function greet() {
   console.log("Hello World");
 }
 
-executeFunction(greet); // Dette vil logge: Hej verden!
+executeFunction(greet); // log: Hello World
