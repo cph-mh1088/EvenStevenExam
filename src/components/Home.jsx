@@ -2,6 +2,14 @@ import eventFacade from "/src/facade/eventFacade.js";
 import { useState, useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
 
+// Opgaver:
+// Fjerne udlægger navn efter tilføjelse af udgift
+// implementere fejl håndtering
+// viser ikke OG udlægger på details
+// viser ikke udgiftslisten på details
+// måske findes på noget andet i details? Betinget rendering og så vise opdelingen istedet?
+// der er noget med home dropdown styling der ikke er 100 lige og dropdown pilen er heller ikke 100 rigitg
+
 const Home = () => {
   const [amount, setAmount] = useState(""); // ongoing amount
   const [totalAmount, setTotalAmount] = useState(0); // total amount
@@ -38,6 +46,7 @@ const Home = () => {
       const newExpense = {
         amount: parseFloat(amount),
         description: description,
+        payer: selectedOption,
       };
 
       // add the new expense to the expense list
@@ -117,17 +126,17 @@ const Home = () => {
         <h2>Tilføj udgifter</h2>
         {/* Dropdown-menu med 6 valgmuligheder */}
         <select
-          id="expenseInput"
+          id="spenderDropdown"
           value={selectedOption}
           onChange={handleDropdownChange}
         >
           <option value="">Vælg udlægger</option>
-          <option value="udlægger1">Far</option>
-          <option value="udlægger2">Mor</option>
-          <option value="udlægger3">Ida</option>
-          <option value="udlægger4">Maria</option>
-          <option value="udlægger5">Laura</option>
-          <option value="udlægger6">Mikkel</option>
+          <option value="Far">Far</option>
+          <option value="Mor">Mor</option>
+          <option value="Ida">Ida</option>
+          <option value="Maria">Maria</option>
+          <option value="Laura">Laura</option>
+          <option value="Mikkel">Mikkel</option>
         </select>
         <br></br>
         <br></br>
@@ -160,7 +169,8 @@ const Home = () => {
           <ul className="expense-list">
             {expenseList.map((expense, index) => (
               <li key={index} className="expense-item">
-                {expense.description}: {expense.amount.toFixed(2)} kr.
+                {expense.description} ({expense.payer}):{" "}
+                {expense.amount.toFixed(2)} kr.
               </li>
             ))}
           </ul>
@@ -185,7 +195,6 @@ const Home = () => {
         {showMessage ? (
           <p style={{ color: "green" }}>Begivenhed tilføjet!</p>
         ) : null}
-        {/* <p style={{ color: "red" }}>{error}</p> */}
       </main>
       <br></br>
       <footer>

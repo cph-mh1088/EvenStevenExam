@@ -4,10 +4,11 @@ function eventFacade() {
       id: 1,
       name: "Test Begivenhed",
       expenses: [
-        { description: "Mad", amount: 50.0 },
-        { description: "Drikke", amount: 20.0 },
+        { description: "Mad", amount: 50.0, payer: "Far" },
+        { description: "Drikke", amount: 20.0, payer: "Mikkel" },
       ],
       totalAmount: 999,
+      friends: ["Far", "Mor", "Ida", "Maria", "Laura", "Mikkel"],
     },
   ];
 
@@ -23,24 +24,19 @@ function eventFacade() {
 
   const addEvent = (event) => {
     try {
-      // if (!event.name || !event.expenses) {
-      //   throw new Error("...");
-      // }
-
       event.id = nextId;
       nextId++;
+      event.friends = ["Far", "Mor", "Ida", "Maria", "Laura", "Mikkel"];
       events.push(event);
 
-      // Array of expenses reduced to a single value
+      // Beregn totalbeløbet for begivenheden
       const totalExpenseAmount = event.expenses.reduce(
-        // acc = accumulator starting at 0
-        // expense = current value
         (acc, expense) => acc + parseFloat(expense.amount),
-        0 // Initial value of the accumulator
+        0
       );
 
       if (isNaN(totalExpenseAmount)) {
-        throw new Error("");
+        throw new Error("Invalid expense amount");
       }
 
       event.totalAmount = parseFloat(totalExpenseAmount.toFixed(2));
