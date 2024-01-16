@@ -5,30 +5,25 @@ import {
   Outlet,
 } from "react-router-dom";
 import "./App.css";
-import MainLayout from "./components/MainLayout";
 import Home from "./components/Home";
 import Events from "./components/Events";
 import EventDetails from "./components/EventDetails";
-import Login from "./components/Login";
 import NoMatch from "./components/NoMatch";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
-  // app name being send as a prop
-  const appName = "EvenSteven";
-
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<MainLayout appName={appName} />}>
+      <ErrorBoundary>
+        <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="login" element={<Login />} />
           <Route path="begivenheder" element={<Outlet />}>
             <Route index element={<Events />} />
             <Route path="begivenhed/:id" element={<EventDetails />} />
           </Route>
-        </Route>
-        <Route path="*" element={<NoMatch />} />
-      </Routes>
+          <Route path="*" element={<NoMatch />} />
+        </Routes>
+      </ErrorBoundary>
     </Router>
   );
 }

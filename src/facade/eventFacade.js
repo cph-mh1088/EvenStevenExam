@@ -1,6 +1,3 @@
-// global - made to showcase. Used in Header.jsx
-window.testId = 2;
-
 function eventFacade() {
   let events = [
     {
@@ -14,7 +11,7 @@ function eventFacade() {
     },
   ];
 
-  let nextId = testId;
+  let nextId = 2;
 
   const getEvents = () => {
     return events;
@@ -26,9 +23,9 @@ function eventFacade() {
 
   const addEvent = (event) => {
     try {
-      if (!event.name || !event.expenses) {
-        throw new Error("Begivenheden mangler påkrævede felter.");
-      }
+      // if (!event.name || !event.expenses) {
+      //   throw new Error("...");
+      // }
 
       event.id = nextId;
       nextId++;
@@ -43,13 +40,12 @@ function eventFacade() {
       );
 
       if (isNaN(totalExpenseAmount)) {
-        throw new Error("Ugyldigt beløb for en udgift");
+        throw new Error("");
       }
 
       event.totalAmount = parseFloat(totalExpenseAmount.toFixed(2));
     } catch (error) {
-      console.error("Fejl ved tilføjelse af begivenhed:", error);
-      throw error; // Rethrow error to whoever called addEvent
+      console.error(error);
     }
   };
 

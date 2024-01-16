@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
 import eventFacade from "/src/facade/eventFacade.js";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, Outlet } from "react-router-dom";
 
 const Home = () => {
   const [amount, setAmount] = useState(""); // ongoing amount
@@ -8,7 +8,6 @@ const Home = () => {
   const [description, setDescription] = useState(""); // description of the expense
   const [expenseList, setExpenseList] = useState([]); // expense list
   const [eventName, setEventName] = useState(""); // event name
-  const [error, setError] = useState(null); // error message
   const [showMessage, setShowMessage] = useState(false); // show message
 
   useEffect(() => {
@@ -21,12 +20,11 @@ const Home = () => {
   }, [showMessage]);
 
   // ---   Methods  ---
-  // handle changes in the input field for amount
   const handleAmountChange = (event) => {
     setAmount(event.target.value);
 
     if (event.target.value !== "" && description !== "") {
-      setError(null);
+      throw Error("Du skal udfylde både beskrivelse og beløb");
     }
   };
 
@@ -34,7 +32,6 @@ const Home = () => {
   const handleAddExpense = () => {
     // check if the amount is empty
     if (amount === "" || description === "") {
-      setError("Du skal udfylde både beskrivelse og beløb");
       console.log("Du skal udfylde både beskrivelse og beløb");
       return;
     }
@@ -64,20 +61,17 @@ const Home = () => {
 
     // clear error message when description is changed
     if (event.target.value !== "" && amount !== "") {
-      setError(null);
     }
   };
 
   const handleAddEvent = () => {
     try {
       if (!eventName) {
-        setError("Du skal navngive din begivenhed");
         console.log("Du skal navngive din begivenhed");
         return;
       }
 
       if (expenseList.length === 0) {
-        setError("Du skal tilføje mindst én udgift.");
         console.log("Du skal tilføje mindst én udgift.");
         return;
       }
@@ -97,10 +91,8 @@ const Home = () => {
       setEventName("");
       setExpenseList([]);
       setTotalAmount(0);
-      setError(null);
     } catch (error) {
-      setError("Der skete en fejl ved tilføjelse af begivenhed.");
-      console.error("Fejl ved tilføjelse af begivenhed:", error);
+      console.error("Fejl ved tilføjelse af begivenhed:");
     }
   };
 
@@ -179,19 +171,11 @@ const Home = () => {
         {showMessage ? (
           <p style={{ color: "green" }}>Begivenhed tilføjet!</p>
         ) : null}
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {/* <p style={{ color: "red" }}>{error}</p> */}
       </main>
       <br></br>
-      <footer>
-        <div className="flex-container-admin">
-          <div className="flex-conterin-children">
-            <p>kontakt admin på tlf:. 12345678</p>
-            <Link to="/login" className="footer-login-link">
-              Log ind
-            </Link>
-          </div>
-        </div>
-      </footer>
+      <footer></footer>
+      <Outlet />
     </div>
   );
 };
