@@ -8,6 +8,8 @@ const Home = () => {
   const [description, setDescription] = useState(""); // description of the expense
   const [expenseList, setExpenseList] = useState([]); // expense list
   const [eventName, setEventName] = useState(""); // event name
+  const [selectedOption, setSelectedOption] = useState("");
+
   const [showMessage, setShowMessage] = useState(false); // show message
 
   useEffect(() => {
@@ -22,20 +24,15 @@ const Home = () => {
   // ---   Methods  ---
   const handleAmountChange = (event) => {
     setAmount(event.target.value);
+  };
 
-    if (event.target.value !== "" && description !== "") {
-      throw Error("Du skal udfylde både beskrivelse og beløb");
-    }
+  // Ny metode til at håndtere ændringer i dropdown
+  const handleDropdownChange = (event) => {
+    setSelectedOption(event.target.value);
   };
 
   //handle adddition of amount and description to the expense list
   const handleAddExpense = () => {
-    // check if the amount is empty
-    if (amount === "" || description === "") {
-      console.log("Du skal udfylde både beskrivelse og beløb");
-      return;
-    }
-
     if (amount !== "") {
       // create new expense object
       const newExpense = {
@@ -108,6 +105,7 @@ const Home = () => {
         <h2>Her kan du tilføje en begivenhed med tilhørende udgifter</h2>
         <p>Efterfølgende kan du opdele udgifterne under begivenheden</p>
         {/* ---   input fields   --- */}
+        <h2>Tilføj en begivenhed</h2>
         <input
           id="eventInput"
           type="text"
@@ -115,6 +113,22 @@ const Home = () => {
           value={eventName}
           onChange={(e) => setEventName(e.target.value)}
         />
+        <br></br>
+        <h2>Tilføj udgifter</h2>
+        {/* Dropdown-menu med 6 valgmuligheder */}
+        <select
+          id="expenseInput"
+          value={selectedOption}
+          onChange={handleDropdownChange}
+        >
+          <option value="">Vælg udlægger</option>
+          <option value="udlægger1">Far</option>
+          <option value="udlægger2">Mor</option>
+          <option value="udlægger3">Ida</option>
+          <option value="udlægger4">Maria</option>
+          <option value="udlægger5">Laura</option>
+          <option value="udlægger6">Mikkel</option>
+        </select>
         <br></br>
         <br></br>
         <input
@@ -164,7 +178,7 @@ const Home = () => {
         </form>
         <p>Gå til begivenheder for opdeling</p>
         {/* Routing links */}
-        <Link to="begivenheder" className="event-link">
+        <Link to="/begivenheder" className="event-link">
           Begivenheder
         </Link>
         {/* Show messages */}
@@ -174,7 +188,9 @@ const Home = () => {
         {/* <p style={{ color: "red" }}>{error}</p> */}
       </main>
       <br></br>
-      <footer></footer>
+      <footer>
+        <p>Hasselmark</p>
+      </footer>
       <Outlet />
     </div>
   );

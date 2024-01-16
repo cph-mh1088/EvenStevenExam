@@ -5,6 +5,7 @@ import {
   Outlet,
 } from "react-router-dom";
 import "./App.css";
+import Header from "./components/Header";
 import Home from "./components/Home";
 import Events from "./components/Events";
 import EventDetails from "./components/EventDetails";
@@ -15,6 +16,7 @@ function App() {
   return (
     <Router>
       <ErrorBoundary>
+        <Header title="EvenSteven" />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="begivenheder" element={<Outlet />}>
