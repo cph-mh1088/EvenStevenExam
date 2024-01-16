@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import facade from "../../facade/apiFacade";
+import facade from "../facade/apiFacade";
 
 function LogIn() {
   const init = { username: "", password: "" };

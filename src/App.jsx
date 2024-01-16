@@ -5,12 +5,12 @@ import {
   Outlet,
 } from "react-router-dom";
 import "./App.css";
-import MainLayout from "./layout/MainLayout";
-import Home from "./components/pages/Home";
-import Events from "./components/pages/Events";
-import EventDetails from "./util/EventDetails";
-import Login from "./components/pages/Login";
-import NoMatch from "./util/NoMatch";
+import MainLayout from "./components/MainLayout";
+import Home from "./components/Home";
+import Events from "./components/Events";
+import EventDetails from "./components/EventDetails";
+import Login from "./components/Login";
+import NoMatch from "./components/NoMatch";
 
 function App() {
   // app name being send as a prop
