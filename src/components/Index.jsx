@@ -4,13 +4,11 @@ import { Link, Outlet } from "react-router-dom";
 
 // Opgaver:
 // Fjerne udlægger navn efter tilføjelse af udgift
-// implementere fejl håndtering
 // viser ikke OG udlægger på details
 // viser ikke udgiftslisten på details
 // måske findes på noget andet i details? Betinget rendering og så vise opdelingen istedet?
-// der er noget med home dropdown styling der ikke er 100 lige og dropdown pilen er heller ikke 100 rigitg
 
-const Home = () => {
+const Index = () => {
   const [amount, setAmount] = useState(""); // ongoing amount
   const [totalAmount, setTotalAmount] = useState(0); // total amount
   const [description, setDescription] = useState(""); // description of the expense
@@ -198,11 +196,13 @@ const Home = () => {
       </main>
       <br></br>
       <footer>
-        <p>Hasselmark</p>
+        <Link to={"/om"}>Om EvenSteven</Link>
+        <p>Kom med forslag til EvenSteven</p>
+        <p>Kontakt</p>
       </footer>
       <Outlet />
     </div>
   );
 };
 
-export default Home;
+export default Index;

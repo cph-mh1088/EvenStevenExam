@@ -4,15 +4,15 @@ import { useNavigate } from "react-router-dom";
 const Header = ({ title }) => {
   const navigate = useNavigate();
 
-  const handleHeaderClick = () => {
+  const handleHeaderTextClick = () => {
     navigate("/");
   };
 
   return (
-    <div className="header" onClick={handleHeaderClick}>
+    <div className="header">
       <header>
-        <h1>
-          <span className="blue-text">{title}</span>
+        <h1 className="header-text" onClick={handleHeaderTextClick}>
+          {title}
         </h1>
       </header>
     </div>

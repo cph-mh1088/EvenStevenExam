@@ -7,7 +7,7 @@ function eventFacade() {
         { description: "Mad", amount: 50.0, payer: "Far" },
         { description: "Drikke", amount: 20.0, payer: "Mikkel" },
       ],
-      totalAmount: 999,
+      totalAmount: 70,
       friends: ["Far", "Mor", "Ida", "Maria", "Laura", "Mikkel"],
     },
   ];
