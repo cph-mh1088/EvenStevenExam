@@ -6,9 +6,8 @@ const EventDetails = () => {
   const { id } = useParams();
   const event = eventFacade.findEvent(id);
 
+  const [overPayer, setOverPayer] = useState([]); // overpayers
   const [splitResult, setSplitResult] = useState([]); // result of split
-  const [overPayer, setOverPayer] = useState([]); // result of split
-
   const [selectedPeople, setSelectedPeople] = useState([]); // chosen people to split with
 
   const handlePersonToggle = (person) => {
@@ -21,33 +20,25 @@ const EventDetails = () => {
     }
   };
 
-  const handleSplit = () => {
-    // have fat i det totale beløb
-    const totalAmount = event.totalAmount;
+  /**
+   * Method to get all people involved in the event
+   * @param {String[]} list of people who paid
+   * @param {String[]} list of selected people to split with
+   * @returns {String[]} all people involved in the event
+   */
+  const getAllPeople = (payers, selected) => {
+    return [...payers, ...selected];
+  };
 
-    // have fat i udlæggere
-    const payers = event.expenses.map((e) => e.payer);
-
-    console.log("Payers: " + payers);
-
-    // have fat i de valgte personer
-    const selected = selectedPeople;
-
-    console.log("Selected: " + selected);
-
-    // dele det totale beløb med antal personer. både payers og selected
-    const share = totalAmount / (payers.length + selected.length);
-
-    // log hvor meget hver person skal betale
-    console.log("Share " + share);
-
-    // lav en liste af både payers og selected
-    const allPeople = [...payers, ...selected];
-
-    console.log("All people: " + allPeople);
-
-    // find ud af hvem der har betalt mere end deres share
-    const overPayers = allPeople.filter((person) => {
+  /**
+   * Method to find people who paid more than their share based on total amount and expenses
+   * @param {string[]} allPeople
+   * @param {object} event
+   * @param {number} share
+   * @returns {string[]} list over people who paid more than their share
+   */
+  const findOverPayers = (allPeople, event, share) => {
+    return allPeople.filter((person) => {
       const personExpenses = event.expenses.filter((e) => e.payer === person);
       const personTotal = personExpenses.reduce(
         (acc, cur) => acc + cur.amount,
@@ -55,14 +46,17 @@ const EventDetails = () => {
       );
       return personTotal > share;
     });
+  };
 
-    setOverPayer(overPayers);
-
-    // log overpayers
-    console.log("Overpayers: " + overPayers);
-
-    // find ud af hvor meget far og mikkel individuelt har betalt over deres share
-    const overPayersAmount = overPayers.map((person) => {
+  /**
+   * Method to calculate the amount each overpayer paid too much
+   * @param {String []} list of overPayers
+   * @param {number} share
+   * @param {object} event
+   * @returns {number []} list of amount each overpayer paid too much
+   */
+  const calculateOverPayersAmount = (overPayers, share, event) => {
+    return overPayers.map((person) => {
       const personExpenses = event.expenses.filter((e) => e.payer === person);
       const personTotal = personExpenses.reduce(
         (acc, cur) => acc + cur.amount,
@@ -70,22 +64,54 @@ const EventDetails = () => {
       );
       return personTotal - share;
     });
+  };
 
-    // log overpayersAmount og vis hvem der skyldes hvad
-    console.log("OverpayersAmount: " + overPayersAmount);
-
-    // del overpyersamount for hver overpayer med seleceted
-    const split = overPayersAmount.map((amount) => {
+  /**
+   * Method to calculate the amount each person should pay to each overpayer
+   * @param {number[]} overPayersAmount
+   * @param {string[]} selected
+   * @returns {number[]} list of amount each person should pay to each overpayer
+   */
+  const calculateSplitResult = (overPayersAmount, selected) => {
+    return overPayersAmount.map((amount) => {
       return amount / selected.length;
     });
+  };
 
-    // log split
-    console.log("Split: " + split);
+  /**
+   * Method to calculate the share of each person
+   * @param {number} totalAmount
+   * @param {string[]} list of payers
+   * @param {string[]} list of people to split with
+   * @returns {number} share
+   */
+  const calculateShare = (totalAmount, payers, selected) => {
+    return totalAmount / (payers.length + selected.length);
+  };
 
+  /**
+   * Method to handle the split of expenses from an event
+   */
+  const handleSplit = () => {
+    const totalAmount = event.totalAmount;
+    const payers = event.expenses.map((e) => e.payer);
+    const selected = selectedPeople;
+
+    const share = calculateShare(totalAmount, payers, selected);
+
+    const allPeople = getAllPeople(payers, selected);
+
+    const overPayers = findOverPayers(allPeople, event, share);
+    setOverPayer(overPayers);
+
+    const overPayersAmount = calculateOverPayersAmount(
+      overPayers,
+      share,
+      event
+    );
+
+    const split = calculateSplitResult(overPayersAmount, selected);
     setSplitResult(split);
-
-    // jeg vil gerne have at split bliver vist på brugergrænsefladen
-    // jeg vil gerne have at overpayersAmount bliver vist på brugergrænsefladen
   };
 
   return (
@@ -120,7 +146,7 @@ const EventDetails = () => {
                     type="checkbox"
                     checked={
                       selectedPeople.includes(friend) ||
-                      event.expenses.some((e) => e.payer === friend) // kryds af hvis personen er en udlægger
+                      event.expenses.some((e) => e.payer === friend)
                     }
                     onChange={() => handlePersonToggle(friend)}
                   />
@@ -137,19 +163,17 @@ const EventDetails = () => {
         </button>
         <br /> <br />
         {/* Vis resultatet af opdelingen, hvis der er nogen */}
-        {splitResult.length > 0 && selectedPeople.length > 0 && (
-          <div className="split-result">
-            <h3>Opdeling:</h3>
-            <p>Hver obs. på rækkefølgen Hver person skal betale følgende:</p>
-            <ul>
-              {splitResult.map((amount, index) => (
-                <li key={index}>
-                  {overPayer[index]}: {amount.toFixed(2)} kr.
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <div className="split-result">
+          <h3>Opdeling:</h3>
+          <p>Hver obs. på rækkefølgen Hver person skal betale følgende:</p>
+          <ul>
+            {splitResult.map((amount, index) => (
+              <li key={index}>
+                {overPayer[index]}: {amount.toFixed(2)} kr.
+              </li>
+            ))}
+          </ul>
+        </div>
       </main>
       <br />
       <footer></footer>
@@ -158,7 +182,3 @@ const EventDetails = () => {
 };
 
 export default EventDetails;
-
-// problemer:
-// man kan ikke kun dele mellem overpayers
-// der deles kun mellem index antal?
