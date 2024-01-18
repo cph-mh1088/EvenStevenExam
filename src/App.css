@@ -127,7 +127,7 @@ footer {
 
 .event-link {
   display: block;
-  width: 100%; /* Fyld hele bredden af forældreelementet */
+  width: 100%; /* Fill the whole width of parens element */
   padding-bottom: 1%;
   padding-top: 1%;
   color: #000;

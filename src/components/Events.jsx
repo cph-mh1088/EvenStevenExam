@@ -24,14 +24,14 @@ const Events = () => {
   }, []);
 
   return (
-    <div className="flex-container">
-      <main className="flex-items">
+    <div>
+      <main>
         <br></br>
         <h2>Begivenheder</h2>
         {error ? (
           <p style={{ color: "red" }}>{error}</p>
         ) : (
-          <div className="Events-container">
+          <div>
             <div className="Events-body">
               {events.map((event) => (
                 <div key={event.id} className="Event-row">
@@ -45,13 +45,7 @@ const Events = () => {
         )}
       </main>
       <br></br>
-      <footer>
-        <div className="flex-container-admin">
-          <div>
-            <p>kontakt admin på tlf:. 12345678</p>
-          </div>
-        </div>
-      </footer>
+      <footer></footer>
     </div>
   );
 };

@@ -2,7 +2,7 @@ function eventFacade() {
   let events = [
     {
       id: 1,
-      name: "Test Begivenhed",
+      name: "Eksempel",
       expenses: [
         { description: "Mad", amount: 50.0, payer: "Far" },
         { description: "Drikke", amount: 20.0, payer: "Mikkel" },

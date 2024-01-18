@@ -2,19 +2,13 @@ import eventFacade from "/src/facade/eventFacade.js";
 import { useState, useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
 
-// Opgaver:
-// Fjerne udlægger navn efter tilføjelse af udgift
-// viser ikke OG udlægger på details
-// viser ikke udgiftslisten på details
-// måske findes på noget andet i details? Betinget rendering og så vise opdelingen istedet?
-
 const Index = () => {
   const [amount, setAmount] = useState(""); // ongoing amount
   const [totalAmount, setTotalAmount] = useState(0); // total amount
   const [description, setDescription] = useState(""); // description of the expense
   const [expenseList, setExpenseList] = useState([]); // expense list
   const [eventName, setEventName] = useState(""); // event name
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState(""); // selected payer in dropdown
 
   const [showMessage, setShowMessage] = useState(false); // show message
 
@@ -197,8 +191,6 @@ const Index = () => {
       <br></br>
       <footer>
         <Link to={"/om"}>Om EvenSteven</Link>
-        <p>Kom med forslag til EvenSteven</p>
-        <p>Kontakt</p>
       </footer>
       <Outlet />
     </div>
