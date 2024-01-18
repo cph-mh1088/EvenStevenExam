@@ -31,10 +31,9 @@ main {
 }
 
 footer {
-  background-color: #ed6464;
-  text-align: left;
+  text-align: center;
 
-  border: 2px solid green;
+  border: 2px solid #ed6464;
 }
 
 /* <--   /   --> */
@@ -55,18 +54,11 @@ footer {
   border: 2px solid black;
   border-radius: 10px;
   margin: auto;
+  width: 71.5%;
 }
 
 #spenderDropdown {
-  width: 100%;
-  appearance: none; /* removes standard dropdown arrow */
-  /* Custom blue dropdown arrow */
-  background-image: linear-gradient(45deg, transparent 50%, #6495ed 50%),
-    linear-gradient(135deg, #6495ed 50%, transparent 50%);
-  background-position: calc(100% - 20px) calc(1em + 2px),
-    calc(100% - 15px) calc(1em + 2px);
-  background-size: 5px 5px, 5px 5px;
-  background-repeat: no-repeat;
+  width: 72.2%;
 }
 
 .expense-item {
@@ -89,11 +81,6 @@ footer {
 
 .add-expense-button:hover {
   background-color: #2e4d92;
-}
-
-.expense-list {
-  list-style-type: none; /* Fjern punkttegnene */
-  padding: 0;
 }
 
 .add-event-button {
@@ -125,7 +112,8 @@ footer {
   margin-bottom: 1%; /* Tilføj lidt mellemrum mellem hver række */
 }
 
-.event-link {
+.event-link,
+.about-link {
   display: block;
   width: 100%; /* Fill the whole width of parens element */
   padding-bottom: 1%;
@@ -169,4 +157,8 @@ footer {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+.expense-pr-person {
+  border: 2px solid black;
 }

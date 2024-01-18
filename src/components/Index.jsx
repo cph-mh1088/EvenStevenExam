@@ -189,8 +189,11 @@ const Index = () => {
         ) : null}
       </main>
       <br></br>
+      <br></br>
       <footer>
-        <Link to={"/om"}>Om EvenSteven</Link>
+        <Link to={"/om"} className="about-link">
+          Om EvenSteven
+        </Link>
       </footer>
       <Outlet />
     </div>
