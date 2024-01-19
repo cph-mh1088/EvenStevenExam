@@ -24,6 +24,8 @@ const About = () => {
       <br />
 
       <h2>Kontakt EvenSteven</h2>
+
+      <p>Det her er bare en kommentar der skal slettes igen om lidt</p>
     </div>
   );
 };
