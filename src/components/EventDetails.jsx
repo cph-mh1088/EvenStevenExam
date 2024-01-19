@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import eventFacade from "/src/facade/eventFacade.js";
 
@@ -8,8 +8,8 @@ const EventDetails = () => {
 
   const [overPayer, setOverPayer] = useState([]); // overpayers
   const [splitResult, setSplitResult] = useState([]); // result of split
-  const [selectedPeople, setSelectedPeople] = useState([]); // chosen people to split with
-  const [share, setShare] = useState(0); // Opdateret med useState
+  const [selectedPeople, setSelectedPeople] = useState([]); // chosen non-payers to split with
+  const [share, setShare] = useState(0); // share pr. person
 
   const handlePersonToggle = (person) => {
     if (selectedPeople.includes(person)) {
@@ -21,41 +21,32 @@ const EventDetails = () => {
     }
   };
 
-  /**
-   * Method to get all people involved in the event
-   * @param {String[]} list of people who paid
-   * @param {String[]} list of selected people to split with
-   * @returns {String[]} all people involved in the event
-   */
   const getAllPeople = (payers, selected) => {
     return [...payers, ...selected];
   };
 
-  /**
-   * Method to find people who paid more than their share based on total amount and expenses
-   * @param {string[]} allPeople
-   * @param {object} event
-   * @param {number} share
-   * @returns {string[]} list over people who paid more than their share
-   */
+  const calculateShare = (totalAmount, payers, selected) => {
+    // if zero non-payers are selected, split between all payers
+    if (selected.length === 0) {
+      return totalAmount / payers.length;
+    } else {
+      return totalAmount / (payers.length + selected.length);
+    }
+  };
+
   const findOverPayers = (allPeople, event, share) => {
     return allPeople.filter((person) => {
       const personExpenses = event.expenses.filter((e) => e.payer === person);
+      // calculate the total expense amount for each person
       const personTotal = personExpenses.reduce(
         (acc, cur) => acc + cur.amount,
         0
       );
+      // return true if the person has paid more than the share
       return personTotal > share;
     });
   };
 
-  /**
-   * Method to calculate the amount each overpayer paid too much
-   * @param {String []} list of overPayers
-   * @param {number} share
-   * @param {object} event
-   * @returns {number []} list of amount each overpayer paid too much
-   */
   const calculateOverPayersAmount = (overPayers, share, event) => {
     return overPayers.map((person) => {
       const personExpenses = event.expenses.filter((e) => e.payer === person);
@@ -63,47 +54,20 @@ const EventDetails = () => {
         (acc, cur) => acc + cur.amount,
         0
       );
+      // return the amount the person has paid too much
       return personTotal - share;
     });
   };
-  useEffect(() => {
-    const allPeople = getAllPeople(
-      event.expenses.map((e) => e.payer),
-      selectedPeople
-    );
-    const overPayers = findOverPayers(allPeople, event, share);
-    setOverPayer(overPayers);
-
-    const overPayersAmount = calculateOverPayersAmount(
-      overPayers,
-      share,
-      event
-    );
-
-    const split = calculateSplitResult(overPayersAmount, selectedPeople);
-    setSplitResult(split);
-  }, [share]);
 
   const calculateSplitResult = (overPayersAmount, selected) => {
     return overPayersAmount.map((amount) => {
+      if (selected.length === 0) {
+        return amount / overPayersAmount.length;
+      }
       return amount / selected.length;
     });
   };
 
-  /**
-   * Method to calculate the share of each person
-   * @param {number} totalAmount
-   * @param {string[]} list of payers
-   * @param {string[]} list of people to split with
-   * @returns {number} share
-   */
-  const calculateShare = (totalAmount, payers, selected) => {
-    return totalAmount / (payers.length + selected.length);
-  };
-
-  /**
-   * Method to handle the split of expenses from an event
-   */
   const handleSplit = () => {
     const totalAmount = event.totalAmount;
     const payers = event.expenses.map((e) => e.payer);
@@ -111,12 +75,11 @@ const EventDetails = () => {
 
     const newShare = calculateShare(totalAmount, payers, selected);
     setShare(newShare);
-    console.log("Share:" + newShare);
 
     const allPeople = getAllPeople(payers, selected);
     console.log("all people: " + allPeople);
 
-    const overPayers = findOverPayers(allPeople, event, newShare); // Opdateret med newShare
+    const overPayers = findOverPayers(allPeople, event, newShare);
     setOverPayer(overPayers);
     console.log("Overpayers: " + overPayers);
 
@@ -125,6 +88,7 @@ const EventDetails = () => {
       newShare,
       event
     );
+    console.log("Share:" + newShare);
 
     const split = calculateSplitResult(overPayersAmount, selected);
     setSplitResult(split);
@@ -173,17 +137,24 @@ const EventDetails = () => {
         <br />
         {/* Knap til at udføre opdeling af udgifter */}
         <button onClick={handleSplit} className="split-button">
-          Del beløb
+          Del beløbet
         </button>
         <br /> <br />
         {/* Vis resultatet af opdelingen, hvis der er nogen */}
         <div className="split-result">
           <h3>Opdeling:</h3>
-          <p>Hver valgt deltager skal betale nedenstående beløb til udlægger</p>
+          <p>Hver deltager skal betale nedenstående beløb til udlægger</p>
           <ul>
             {splitResult.map((amount, index) => (
               <li key={index}>
-                {overPayer[index]}: {amount.toFixed(2)} kr.
+                {overPayer[index]} skal modtage: {amount.toFixed(2)} kr. i alt
+                {/* Her skal der lige laves noget logik */}
+                {amount > 0 &&
+                  ` fordi ${overPayer[index]} allerede har betalt ${Math.abs(
+                    amount
+                  ).toFixed(2)} kr. til begivenheden fra ${
+                    selectedPeople.length
+                  } person${selectedPeople.length !== 1 ? "er" : ""}`}
               </li>
             ))}
           </ul>
