@@ -10,6 +10,7 @@ const EventDetails = () => {
   const [splitResult, setSplitResult] = useState([]); // result of split
   const [selectedPeople, setSelectedPeople] = useState([]); // chosen non-payers to split with
   const [share, setShare] = useState(0); // share pr. person
+  const [logMessages, setLogMessages] = useState([]);
 
   const handlePersonToggle = (person) => {
     if (selectedPeople.includes(person)) {
@@ -93,8 +94,31 @@ const EventDetails = () => {
     const split = calculateSplitResult(overPayersAmount, selected);
     setSplitResult(split);
     console.log("Split: " + split);
-  };
 
+    // loop all non overpayers og del split mellem dem
+
+    allPeople.forEach((person) => {
+      // tjek at person ikke er overpayer
+      if (!overPayers.includes(person) || selected.includes(person)) {
+        const personExpenses = event.expenses.filter((e) => e.payer === person);
+
+        const personTotal = personExpenses.reduce(
+          (acc, cur) => acc + cur.amount,
+          0
+        );
+
+        // hvor meget mangler han før persontotal er lig share
+
+        const missing = newShare - personTotal;
+
+        // Tilføj logbesked til listen
+        setLogMessages((prevLogs) => [
+          ...prevLogs,
+          `${person} ==> : ${missing}`,
+        ]);
+      }
+    });
+  };
   return (
     <div>
       <main>
@@ -144,24 +168,15 @@ const EventDetails = () => {
         <div className="split-result">
           <h3>Opdeling:</h3>
           <p>Hver deltager skal betale nedenstående beløb til udlægger</p>
-          <ul>
-            {splitResult.map((amount, index) => (
-              <li key={index}>
-                {overPayer[index]} skal modtage: {amount.toFixed(2)} kr. i alt
-                {/* Her skal der lige laves noget logik */}
-                {amount > 0 &&
-                  ` fordi ${overPayer[index]} allerede har betalt ${Math.abs(
-                    amount
-                  ).toFixed(2)} kr. til begivenheden fra ${
-                    selectedPeople.length
-                  } person${selectedPeople.length !== 1 ? "er" : ""}`}
-              </li>
-            ))}
-          </ul>
         </div>
         <div className="expense-pr-person">
           <p>{"udgift pr. person: " + share.toFixed(2)}</p>
         </div>
+        <div className="log-messages">
+          {logMessages.map((message, index) => (
+            <p key={index}>{message}</p>
+          ))}
+        </div>{" "}
       </main>
       <br />
       <footer></footer>
