@@ -4,28 +4,26 @@ const About = () => {
   return (
     <div>
       <h1>Velkommen til EvenSteven</h1>
+      <br />
       <h2>Hvad er EvenSteven?</h2>
-      <p>EvenSteven er en simpel udgiftsfordeler</p>
+      <p>EvenSteven er en side designet til lige opdeling af udgifter.</p>
       <p>
-        Udgiftsfordeleren er lavet til en specifik omgangskreds, men kan bruges
-        af alle ved substition af navnene
-      </p>
-      <br />
-      <h2>Gemmes mine begivenheder?</h2>
-      <p>Nej. Dine indtastede oplysninger gemmes ikke.</p>
-      <p>
-        Bemærk venligst at dine begivenehder og udgifter kun findes på din egen
-        computer, og kun så længe at du ikke forlader el. genindlæser siden
+        Siden er designet til en specifik omgangskreds, men kan naturligvis
+        anvendes af alle ved at substituere navnene.
       </p>
       <br />
 
-      <h2>Hvorfor findes EvenSteven?</h2>
-      <p>EvenSteven er lavet for sjov, med afsæt i et skole projekt </p>
+      <h2>Opbevares mine begivenheder?</h2>
+      <p>Nej, dine indtastede oplysninger gemmes ikke.</p>
+      <p>
+        Bemærk venligst, at dine begivenheder og udgifter kun eksisterer på din
+        egen computer og kun så længe, du ikke forlader eller genindlæser siden.
+      </p>
       <br />
 
-      <h2>Kontakt EvenSteven</h2>
-
-      <p>Det her er bare en kommentar der skal slettes igen om lidt</p>
+      <h2>Hvorfor eksisterer EvenSteven?</h2>
+      <p>EvenSteven er skabt for sjov, som en del af et skoleprojekt.</p>
+      <br />
     </div>
   );
 };

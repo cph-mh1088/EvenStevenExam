@@ -32,7 +32,7 @@ const Events = () => {
           <p style={{ color: "red" }}>{error}</p>
         ) : (
           <div>
-            <div className="Events-body">
+            <div className="events-body">
               {events.map((event) => (
                 <div key={event.id} className="Event-row">
                   <Link to={`begivenhed/${event.id}`} className="event-link">
@@ -45,7 +45,6 @@ const Events = () => {
         )}
       </main>
       <br></br>
-      <footer></footer>
     </div>
   );
 };

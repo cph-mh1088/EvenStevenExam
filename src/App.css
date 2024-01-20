@@ -9,14 +9,10 @@
   cursor: pointer;
 }
 
-main {
-  border: 2px solid blueviolet;
-}
-
 footer {
   text-align: center;
   background-color: #6495ed;
-  width: 100%;
+  padding: 2%;
 }
 
 /* <--   /   --> */
@@ -24,12 +20,12 @@ footer {
 #eventInput,
 #amountInput,
 #descriptionInput,
-#spenderDropdown {
+#expositorsDropdown {
   width: 70%;
   padding: 1%;
   border: 2px solid black;
   background-color: white;
-  border-radius: 10px; /* Runde hjørner */
+  border-radius: 10px; /* round corners */
   color: black;
 }
 
@@ -40,11 +36,12 @@ footer {
   width: 71.5%;
 }
 
-#spenderDropdown {
+#expositorsDropdown {
   width: 72.2%;
 }
 
 .expense-item {
+  display: block; /* removes the dot from list */
   margin-bottom: 1%;
   padding: 1%;
   border-radius: 1%;
@@ -81,22 +78,22 @@ footer {
   background-color: #2e4d92;
 }
 
-/* <!--   /begivenheder   --> */
-
-.Events-body {
-  width: 100%;
-  border: 2px solid black;
-  margin-top: 1%;
-}
-
-.Event-row {
-  margin-bottom: 1%; /* Tilføj lidt mellemrum mellem hver række */
-}
-
-.event-link,
 .about-link {
-  display: block;
-  width: 100%; /* Fill the whole width of parens element */
+  color: white;
+}
+
+/* <--   /events   --> */
+
+.events-body {
+  width: 71.5%;
+  border: 2px solid black;
+  margin: auto;
+  border-radius: 10px; /* round corners */
+}
+
+.event-link {
+  display: block; /* removes the dot from list */
+  width: 100%; /* fill the whole width of parens element */
   padding-bottom: 1%;
   padding-top: 1%;
   color: #000;
@@ -107,7 +104,23 @@ footer {
   background-color: #e0e0e0;
 }
 
-/* <!--   /begivenhder/begivenhed/{id}   --> */
+/* <--   /events/event/{id}   --> */
+
+.expense-list {
+  display: block; /* removes the dot from list */
+  background-color: lightgray;
+}
+
+.people-share-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.expense-pr-person {
+  border: 2px solid black;
+}
 
 .split-button {
   background-color: #6495ed;
@@ -122,26 +135,6 @@ footer {
 
 .split-button:hover {
   background-color: #2e4d92;
-}
-
-.Events-table td,
-.EventDetails-table td {
-  width: 100%;
-  padding: 1%;
-  border: 2px solid black;
-  border-radius: 10px;
-  color: black;
-}
-
-.people-share-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.expense-pr-person {
-  border: 2px solid black;
 }
 
 .due-amount-owed {

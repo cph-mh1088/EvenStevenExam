@@ -15,23 +15,20 @@ const Index = () => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setShowMessage(false);
-    }, 3000);
+    }, 4000);
 
     // Clean up function. Clear the timeout when the component unmounts or when showMessage is set to false
     return () => clearTimeout(timeout);
   }, [showMessage]);
 
-  // ---   Methods  ---
   const handleAmountChange = (event) => {
     setAmount(event.target.value);
   };
 
-  // Ny metode til at håndtere ændringer i dropdown
   const handleDropdownChange = (event) => {
     setSelectedOption(event.target.value);
   };
 
-  //handle adddition of amount and description to the expense list
   const handleAddExpense = () => {
     if (amount !== "") {
       // create new expense object
@@ -118,7 +115,7 @@ const Index = () => {
         <h2>Tilføj udgifter</h2>
         {/* Dropdown-menu med 6 valgmuligheder */}
         <select
-          id="spenderDropdown"
+          id="expositorsDropdown"
           value={selectedOption}
           onChange={handleDropdownChange}
         >
@@ -158,7 +155,7 @@ const Index = () => {
         {/* Show expense list */}
         <div>
           <h3>{eventName}</h3>
-          <ul className="expense-list">
+          <ul className="expenselist">
             {expenseList.map((expense, index) => (
               <li key={index} className="expense-item">
                 {expense.description} ({expense.payer}):{" "}

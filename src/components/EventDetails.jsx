@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import eventFacade from "/src/facade/eventFacade.js";
 
 const EventDetails = () => {
@@ -123,11 +124,11 @@ const EventDetails = () => {
       <main>
         <br />
         <h2>{event.name}</h2>
-        <div className="expense-list">
+        <div className="expenselist">
           <h3>Udgiftsliste</h3>
           <ul>
             {event.expenses.map((expense, index) => (
-              <li key={index}>
+              <li key={index} className="expense-list">
                 {expense.description} ({expense.payer}):{" "}
                 {expense.amount.toFixed(2)} kr.
               </li>
