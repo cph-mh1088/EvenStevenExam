@@ -190,7 +190,7 @@ const EventDetails = () => {
               {/* iterate over nonOverPayers to show the amount owed */}
               {nonOverPayers.map((nonOverPayer, nonIndex) => (
                 <div key={nonIndex} className="non-overpayer-details">
-                  <p>{nonOverPayer} skal betale:</p>
+                  <h4>{nonOverPayer} skal betale:</h4>
                   {/* list of OverPayers and their respected "debtors" */}
                   <div className="overpayers-list">
                     {overPayers.map((overPayer, overIndex) => (
@@ -207,6 +207,7 @@ const EventDetails = () => {
               ))}
             </div>
           )}
+          <br />
         </div>
       </main>
     </div>
