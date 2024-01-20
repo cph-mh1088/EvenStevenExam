@@ -164,10 +164,10 @@ const EventDetails = () => {
         </button>
         <br /> <br />
         <div className="due-amount">
-          <h3>Regnskab:</h3>
+          <h3>Regnskab</h3>
           <div className="share-per-person">
             <p>
-              {"udgift pr. person: "}
+              {"Udgift pr. person: "}
               <span style={{ color: "#ed6464" }}>
                 {share.toFixed(2) + " kr."}
               </span>
@@ -187,18 +187,19 @@ const EventDetails = () => {
           )}
           {nonOverPayers.length > 0 && overPayers.length > 0 && (
             <div className="missing-payment-container">
-              <h3>Manglende betaling</h3>
               {/* iterate over nonOverPayers to show the amount owed */}
               {nonOverPayers.map((nonOverPayer, nonIndex) => (
                 <div key={nonIndex} className="non-overpayer-details">
-                  <h4>{nonOverPayer} skal betale:</h4>
+                  <p>{nonOverPayer} skal betale:</p>
                   {/* list of OverPayers and their respected "debtors" */}
                   <div className="overpayers-list">
                     {overPayers.map((overPayer, overIndex) => (
                       // iterate over overPayers to show the amount owed to each overPayer
                       <div key={overIndex} className="overpayer-amount">
-                        {overPayer}: {nonOverPayersShare[overIndex].toFixed(2)}{" "}
-                        kr.
+                        {overPayer}:{" "}
+                        <span style={{ color: "#ed6464" }}>
+                          {nonOverPayersShare[overIndex].toFixed(2)} kr.
+                        </span>
                       </div>
                     ))}
                   </div>

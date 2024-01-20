@@ -141,22 +141,13 @@ footer {
   margin: 1%;
 }
 
-.share-per-person {
+.due-amount {
   width: 71%;
   margin: auto;
-  padding: 1%;
   border: 2px solid black;
   border-radius: 5px;
 }
 
 .missing-payment-container {
-  border: 2px solid red;
-}
-
-.non-overpayer-details {
-  border: 2px solid purple;
-}
-
-.overpayer-amount {
-  border: 2px solid green;
+  border-top: 2px solid black;
 }
