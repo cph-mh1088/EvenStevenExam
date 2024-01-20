@@ -96,13 +96,22 @@ const Index = () => {
     handleAddEvent();
   };
 
+  const handleDeleteExpense = (index) => {
+    // remove the expense from the expense list
+    const newExpenseList = expenseList.filter((expense, i) => i !== index);
+    setExpenseList(newExpenseList);
+
+    // subtract the amount from the total amount
+    const deletedExpense = expenseList[index];
+    setTotalAmount((prevTotal) => prevTotal - deletedExpense.amount);
+  };
+
   return (
     <div>
       <main>
-        <br></br>
+        <br />
         <h2>Her kan du tilføje en begivenhed med tilhørende udgifter</h2>
         <p>Efterfølgende kan du opdele udgifterne under begivenheden</p>
-        {/* ---   input fields   --- */}
         <h2>Tilføj en begivenhed</h2>
         <input
           id="eventInput"
@@ -111,9 +120,8 @@ const Index = () => {
           value={eventName}
           onChange={(e) => setEventName(e.target.value)}
         />
-        <br></br>
+        <br />
         <h2>Tilføj udgifter</h2>
-        {/* Dropdown-menu med 6 valgmuligheder */}
         <select
           id="expositorsDropdown"
           value={selectedOption}
@@ -127,8 +135,8 @@ const Index = () => {
           <option value="Laura">Laura</option>
           <option value="Mikkel">Mikkel</option>
         </select>
-        <br></br>
-        <br></br>
+        <br />
+        <br />
         <input
           id="descriptionInput"
           type="text"
@@ -136,8 +144,8 @@ const Index = () => {
           value={description}
           onChange={handleDescriptionChange}
         />
-        <br></br>
-        <br></br>
+        <br />
+        <br />
         <input
           id="amountInput"
           type="number"
@@ -145,14 +153,11 @@ const Index = () => {
           value={amount}
           onChange={handleAmountChange}
         />
-        <br></br>
-        <br></br>
-        {/* ---   buttons in order   --- */}
-        {/* button for adding expense */}
+        <br />
+        <br />
         <button className="add-expense-button" onClick={handleAddExpense}>
           Tilføj udgift
         </button>
-        {/* Show expense list */}
         <div>
           <h3>{eventName}</h3>
           <ul className="expenselist">
@@ -160,33 +165,36 @@ const Index = () => {
               <li key={index} className="expense-item">
                 {expense.description} ({expense.payer}):{" "}
                 {expense.amount.toFixed(2)} kr.
+                <button
+                  className="delete-expense-button"
+                  onClick={() => handleDeleteExpense(index)}
+                >
+                  Slet
+                </button>
               </li>
             ))}
           </ul>
         </div>
-        {/* display the total amount */}
         <div className="total-amount-bar">
           <p>Samlede udgifter: {totalAmount.toFixed(2)} kr.</p>
         </div>
-        <br></br>
-        <br></br>
+        <br />
+        <br />
         <form onSubmit={handleFormSubmit}>
           <button type="submit" className="add-event-button">
             Gem begivenhed
           </button>
         </form>
         <p>Gå til begivenheder for opdeling</p>
-        {/* Routing links */}
         <Link to="/begivenheder" className="event-link">
           Begivenheder
         </Link>
-        {/* Show messages */}
         {showMessage ? (
           <p style={{ color: "green" }}>Begivenhed tilføjet!</p>
         ) : null}
       </main>
-      <br></br>
-      <br></br>
+      <br />
+      <br />
       <footer>
         <Link to={"/om"} className="about-link">
           Om EvenSteven

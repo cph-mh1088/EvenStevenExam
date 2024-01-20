@@ -63,6 +63,26 @@ footer {
   background-color: #2e4d92;
 }
 
+.delete-expense-button {
+  color: white;
+  background-color: #6495ed;
+  width: 8%;
+  padding: 1%;
+  font-size: 75%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  float: right;
+  margin-top: -0.6%;
+  position: relative;
+  right: 14%; /* Tilføjet relativ højremargin */
+  transition: background-color 0.3s ease;
+}
+
+.delete-expense-button:hover {
+  background-color: #2e4d92;
+}
+
 .add-event-button {
   background-color: #6495ed;
   color: white;
