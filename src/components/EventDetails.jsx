@@ -181,25 +181,36 @@ const EventDetails = () => {
               <ul>
                 {overPayers.map((overPayer, index) => (
                   <li key={index}>
-                    {overPayer}: {overPayersAmount[index].toFixed(2)} kr.
+                    {overPayer} skal modtage:{" "}
+                    {overPayersAmount[index].toFixed(2)} kr.
                   </li>
                 ))}
               </ul>
             </div>
           )}
-          {/* Gennemløb nonoverpayers amount og vis hvad de skylder til hver overpayer*/}
-          {/* Der mangler at blive vist navnet på den overpayer som nonoverPayer skylder til */}
+          <h3>Manglende betaling</h3>
+          {/* Her skal der vises hvor meget hver nonOverPayer skal betale til hver OverPayer */}
 
-          {nonOverPayersShare.length > 0 && (
+          {nonOverPayers.length > 0 && overPayers.length > 0 && (
+            // Check om der er både nonOverPayers og overPayers for at vise opdelingen
             <div>
-              <h4>Non Overpayers Share:</h4>
-              <ul>
-                {nonOverPayersShare.map((amount, index) => (
-                  <li key={index}>
-                    {nonOverPayers[index]} skylder: {amount.toFixed(2)} kr.
-                  </li>
-                ))}
-              </ul>
+              {nonOverPayers.map((nonOverPayer, nonIndex) => (
+                // Gennemløb nonOverPayers for at vise betalingen for hver nonOverPayer
+                <div key={nonIndex}>
+                  <h4>{nonOverPayer} skal betale til:</h4>
+                  {/* Lav en liste af OverPayers, som nonOverPayer skal betale til */}
+                  <ul>
+                    {overPayers.map((overPayer, overIndex) => (
+                      // Gennemløb overPayers for at vise det specifikke beløb for hvert par
+                      <li key={overIndex}>
+                        {overPayer} - {nonOverPayersShare[overIndex].toFixed(2)}{" "}
+                        kr.
+                        {/* Vis det specifikke beløb fra nonOverPayersShare for det pågældende par */}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
           )}
         </div>
