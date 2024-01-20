@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 import eventFacade from "/src/facade/eventFacade.js";
 
 const EventDetails = () => {
