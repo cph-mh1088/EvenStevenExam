@@ -166,14 +166,21 @@ const EventDetails = () => {
         <div className="due-amount">
           <h3>Regnskab:</h3>
           <div className="share-per-person">
-            <p>{"udgift pr. person: " + share.toFixed(2) + " kr."}</p>
+            <p>
+              {"udgift pr. person: "}
+              <span style={{ color: "#ed6464" }}>
+                {share.toFixed(2) + " kr."}
+              </span>
+            </p>
           </div>
           {overPayers.length > 0 && (
             <div className="due-amount-owed-container">
               {overPayers.map((overPayer, index) => (
                 <div key={index} className="due-amount-owed">
-                  {overPayer} skal modtage: {overPayersAmount[index].toFixed(2)}{" "}
-                  kr.
+                  {overPayer} skal modtage:{" "}
+                  <span style={{ color: "#4a8f5a" }}>
+                    {overPayersAmount[index].toFixed(2)} kr.
+                  </span>{" "}
                 </div>
               ))}
             </div>
