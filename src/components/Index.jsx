@@ -19,7 +19,7 @@ const Index = () => {
       setShowError(false);
     }, 4000);
 
-    // Clean up function. Clear the timeout when the component unmounts or when showMessage is set to false
+    // clean up function by unmount or dependency change
     return () => clearTimeout(timeout);
   }, [showMessage, showError]);
 
@@ -32,6 +32,12 @@ const Index = () => {
   };
 
   const handleAddExpense = () => {
+    if (amount === "" || description === "") {
+      setErrorMessage("En udgift skal have en beskrivelse og et beløb");
+      setShowError(true);
+      return;
+    }
+
     if (amount !== "") {
       // create new expense object
       const newExpense = {
@@ -40,25 +46,17 @@ const Index = () => {
         payer: selectedOption,
       };
 
-      // add the new expense to the expense list
       setExpenseList((prevExpenseList) => [...prevExpenseList, newExpense]);
 
-      // convert the amount to float and add it to the total amount
       setTotalAmount((prevTotal) => prevTotal + parseFloat(amount));
 
-      //reset the current input amount
       setAmount("");
       setDescription("");
     }
   };
 
-  // handle changes in the input field for description
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
-
-    // clear error message when description is changed
-    if (event.target.value !== "" && amount !== "") {
-    }
   };
 
   const handleAddEvent = () => {
@@ -81,11 +79,8 @@ const Index = () => {
         expenses: expenseList,
       };
 
-      // add event to mock db
       eventFacade.addEvent(newEvent);
       setShowMessage(true);
-
-      console.log("Begivenhed tilføjet:", newEvent);
 
       setEventName("");
       setExpenseList([]);

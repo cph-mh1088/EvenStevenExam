@@ -196,7 +196,7 @@ const EventDetails = () => {
                     {overPayers.map((overPayer, overIndex) => (
                       // iterate over overPayers to show the amount owed to each overPayer
                       <li key={overIndex}>
-                        {overPayer} - {nonOverPayersShare[overIndex].toFixed(2)}{" "}
+                        {overPayer}: {nonOverPayersShare[overIndex].toFixed(2)}{" "}
                         kr.
                       </li>
                     ))}
