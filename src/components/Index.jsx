@@ -161,20 +161,20 @@ const Index = () => {
         </button>
         <div>
           <h3>{eventName}</h3>
-          <ul className="expenselist">
+          <div className="expense-container">
             {expenseList.map((expense, index) => (
-              <li key={index} className="expense-item">
+              <div key={index} className="expense-item">
                 {expense.description} ({expense.payer}):{" "}
-                {expense.amount.toFixed(2)} kr.
+                {expense.amount.toFixed(2)} kr.{" "}
                 <button
                   className="delete-expense-button"
                   onClick={() => handleDeleteExpense(index)}
                 >
                   Slet
                 </button>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
         <div className="total-amount-bar">
           <p>Samlede udgifter: {totalAmount.toFixed(2)} kr.</p>

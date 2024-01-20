@@ -121,27 +121,12 @@ const EventDetails = () => {
   return (
     <div>
       <main>
-        <br />
-        <h2>{event.name}</h2>
-        <div className="expenselist">
-          <h3>Udgiftsliste</h3>
-          <ul>
-            {event.expenses.map((expense, index) => (
-              <li key={index} className="expense-list">
-                {expense.description} ({expense.payer}):{" "}
-                {expense.amount.toFixed(2)} kr.
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="total-amount-bar">
-          <p>Samlede udgifter: {event.totalAmount.toFixed(2)} kr.</p>
-        </div>
+        <h2 className="event-name">{event.name}</h2>
         <div className="participant-checkbox">
-          <h3>Vælg dem du vil dele udgifterne med</h3>
+          <h4>Vælg dem du vil dele udgifterne med</h4>
           <p>
-            obs man kan ikke vælge dem der har lagt ud. De er allerede med i
-            beregningen
+            OBS man ikke kan vælge dem der har lagt ud. De er allerede
+            medregnet.
           </p>
           <div className="people-share-container">
             {event.friends.map((friend) => (
@@ -159,47 +144,57 @@ const EventDetails = () => {
             ))}
           </div>
         </div>
+        <div className="expenselist">
+          <h4>Udgiftsliste</h4>
+          <div className="expense-list">
+            {event.expenses.map((expense, index) => (
+              <div key={index} className="expense-list-items">
+                {expense.description} ({expense.payer}):{" "}
+                {expense.amount.toFixed(2)} kr.
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="total-amount-bar">
+          <p>Samlede udgifter: {event.totalAmount.toFixed(2)} kr.</p>
+        </div>
         <br />
         <button className="split-button" onClick={handleSplit}>
-          Del beløbet
+          Del beløb
         </button>
         <br /> <br />
-        <div className="share-per-person">
-          <p>{"udgift pr. person: " + share.toFixed(2) + " kr."}</p>
-        </div>
         <div className="due-amount">
-          <h3>Opdeling:</h3>
+          <h3>Regnskab:</h3>
+          <div className="share-per-person">
+            <p>{"udgift pr. person: " + share.toFixed(2) + " kr."}</p>
+          </div>
           {overPayers.length > 0 && (
-            <div className="due-amount-owed">
-              <ul>
-                {overPayers.map((overPayer, index) => (
-                  <li key={index}>
-                    <div className="due-amount-owed">
-                      {overPayer} skal modtage:{" "}
-                      {overPayersAmount[index].toFixed(2)} kr.
-                    </div>
-                  </li>
-                ))}
-              </ul>
+            <div className="due-amount-owed-container">
+              {overPayers.map((overPayer, index) => (
+                <div key={index} className="due-amount-owed">
+                  {overPayer} skal modtage: {overPayersAmount[index].toFixed(2)}{" "}
+                  kr.
+                </div>
+              ))}
             </div>
           )}
           {nonOverPayers.length > 0 && overPayers.length > 0 && (
-            <div>
+            <div className="missing-payment-container">
               <h3>Manglende betaling</h3>
               {/* iterate over nonOverPayers to show the amount owed */}
               {nonOverPayers.map((nonOverPayer, nonIndex) => (
-                <div key={nonIndex}>
+                <div key={nonIndex} className="non-overpayer-details">
                   <h4>{nonOverPayer} skal betale:</h4>
                   {/* list of OverPayers and their respected "debtors" */}
-                  <ul>
+                  <div className="overpayers-list">
                     {overPayers.map((overPayer, overIndex) => (
                       // iterate over overPayers to show the amount owed to each overPayer
-                      <li key={overIndex}>
+                      <div key={overIndex} className="overpayer-amount">
                         {overPayer}: {nonOverPayersShare[overIndex].toFixed(2)}{" "}
                         kr.
-                      </li>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               ))}
             </div>

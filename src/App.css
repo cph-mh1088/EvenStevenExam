@@ -1,3 +1,5 @@
+/* <--   general styling   --> */
+
 #root {
   text-align: center;
 }
@@ -15,6 +17,13 @@ footer {
   padding: 2%;
 }
 
+.add-expense-button:hover,
+.delete-expense-button:hover,
+.add-event-button:hover,
+.split-button:hover {
+  background-color: #2e4d92;
+}
+
 /* <--   /   --> */
 
 #eventInput,
@@ -25,13 +34,13 @@ footer {
   padding: 1%;
   border: 2px solid black;
   background-color: white;
-  border-radius: 10px; /* round corners */
+  border-radius: 5px;
   color: black;
 }
 
 .total-amount-bar {
   border: 2px solid black;
-  border-radius: 10px;
+  border-radius: 5px;
   margin: auto;
   width: 71.5%;
 }
@@ -40,50 +49,21 @@ footer {
   width: 72.2%;
 }
 
+.expense-container {
+  width: 72%;
+  margin: auto;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+}
+
 .expense-item {
-  display: block; /* removes the dot from list */
-  margin-bottom: 1%;
   padding: 1%;
-  border-radius: 1%;
-  border-top: 2px dashed black;
 }
 
-.add-expense-button {
-  background-color: #6495ed;
-  color: white;
-  padding: 1%;
-  font-size: 100%;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.add-expense-button:hover {
-  background-color: #2e4d92;
-}
-
+.add-expense-button,
+.add-event-button,
+.split-button,
 .delete-expense-button {
-  color: white;
-  background-color: #6495ed;
-  width: 8%;
-  padding: 1%;
-  font-size: 75%;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  float: right;
-  margin-top: -0.6%;
-  position: relative;
-  right: 14%; /* Tilføjet relativ højremargin */
-  transition: background-color 0.3s ease;
-}
-
-.delete-expense-button:hover {
-  background-color: #2e4d92;
-}
-
-.add-event-button {
   background-color: #6495ed;
   color: white;
   padding: 1%;
@@ -92,10 +72,6 @@ footer {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-}
-
-.add-event-button:hover {
-  background-color: #2e4d92;
 }
 
 .about-link {
@@ -108,11 +84,11 @@ footer {
   width: 71.5%;
   border: 2px solid black;
   margin: auto;
-  border-radius: 10px; /* round corners */
+  border-radius: 5px;
 }
 
 .event-link {
-  display: block; /* removes the dot from list */
+  display: block;
   width: 100%; /* fill the whole width of parens element */
   padding-bottom: 1%;
   padding-top: 1%;
@@ -126,40 +102,53 @@ footer {
 
 /* <--   /events/event/{id}   --> */
 
-.expense-list {
-  display: block; /* removes the dot from list */
-  background-color: lightgray;
+.expenselist h4,
+.due-amount h3,
+.event-name {
+  color: #6495ed;
+  font-size: 1.5em;
+  margin-bottom: 1%;
 }
 
-.people-share-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+.expense-list {
+  background-color: #f2f2f2;
+  margin: auto;
+  margin-bottom: 0.5%;
+  border-radius: 5px;
+  list-style: none;
+  width: 70%;
+  padding: 1%;
+}
+
+.expense-list-items {
+  padding: 1%;
 }
 
 .expense-pr-person {
   border: 2px solid black;
 }
 
-.split-button {
-  background-color: #6495ed;
-  color: white;
-  padding: 1%;
-  font-size: 100%;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.split-button:hover {
-  background-color: #2e4d92;
+.people-share-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: auto;
 }
 
 .due-amount-owed {
-  border: 2px solid black;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 1%;
   margin: 1%;
+}
+
+.missing-payment-container {
+  border: 2px solid red;
+}
+
+.non-overpayer-details {
+  border: 2px solid purple;
+}
+
+.overpayer-amount {
+  border: 2px solid green;
 }
