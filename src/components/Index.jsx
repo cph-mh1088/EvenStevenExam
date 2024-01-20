@@ -9,17 +9,19 @@ const Index = () => {
   const [expenseList, setExpenseList] = useState([]); // expense list
   const [eventName, setEventName] = useState(""); // event name
   const [selectedOption, setSelectedOption] = useState(""); // selected payer in dropdown
-
-  const [showMessage, setShowMessage] = useState(false); // show message
+  const [showMessage, setShowMessage] = useState(false); // show succes message
+  const [showError, setShowError] = useState(false); // show error message
+  const [errorMessage, setErrorMessage] = useState(""); // error message
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       setShowMessage(false);
+      setShowError(false);
     }, 4000);
 
     // Clean up function. Clear the timeout when the component unmounts or when showMessage is set to false
     return () => clearTimeout(timeout);
-  }, [showMessage]);
+  }, [showMessage, showError]);
 
   const handleAmountChange = (event) => {
     setAmount(event.target.value);
@@ -62,12 +64,14 @@ const Index = () => {
   const handleAddEvent = () => {
     try {
       if (!eventName) {
-        console.log("Du skal navngive din begivenhed");
+        setErrorMessage("Du skal navngive din begivenhed");
+        setShowError(true);
         return;
       }
 
       if (expenseList.length === 0) {
-        console.log("Du skal tilføje mindst én udgift.");
+        setErrorMessage("Du skal tilføje mindst én udgift.");
+        setShowError(true);
         return;
       }
 
@@ -87,7 +91,9 @@ const Index = () => {
       setExpenseList([]);
       setTotalAmount(0);
     } catch (error) {
-      console.error("Fejl ved tilføjelse af begivenhed:");
+      console.error("Fejl ved tilføjelse af begivenhed:", error);
+      setErrorMessage("Der opstod en fejl ved tilføjelse af begivenhed");
+      setShowError(true);
     }
   };
 
@@ -189,6 +195,7 @@ const Index = () => {
         <Link to="/begivenheder" className="event-link">
           Begivenheder
         </Link>
+        {showError && <p style={{ color: "red" }}>{errorMessage}</p>}
         {showMessage ? (
           <p style={{ color: "green" }}>Begivenhed tilføjet!</p>
         ) : null}
