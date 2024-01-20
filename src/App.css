@@ -2,28 +2,11 @@
   text-align: center;
 }
 
-/* <--   media queries   --> */
-@media only screen and (max-width: 600px) {
-  main {
-    overflow-y: scroll; /* scrollbar */
-  }
-  body {
-    background-color: lightblue;
-  }
-}
-
-@media only screen and (max-height: 500px) {
-  body {
-    background-color: red;
-  }
-}
-
 .header-text {
-  width: 7%; /* assures that only the text part of the header is clickable*/
+  width: 7%; /* assures that only the text part of the header is clickable */
   text-align: left;
   color: #6495ed;
   cursor: pointer;
-  border: 2px solid black;
 }
 
 main {
@@ -32,8 +15,8 @@ main {
 
 footer {
   text-align: center;
-
-  border: 2px solid #ed6464;
+  background-color: #6495ed;
+  width: 100%;
 }
 
 /* <--   /   --> */
@@ -159,4 +142,11 @@ footer {
 
 .expense-pr-person {
   border: 2px solid black;
+}
+
+.due-amount-owed {
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 1%;
+  margin: 1%;
 }

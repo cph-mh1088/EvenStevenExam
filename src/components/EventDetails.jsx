@@ -12,28 +12,25 @@ const EventDetails = () => {
   const [overPayers, setOverPayers] = useState([]); // people who have paid too much
   const [overPayersAmount, setOverPayersAmount] = useState([]); // amount each overpayer has paid too much
   const [nonOverPayers, setNonOverPayers] = useState([]); // people who have not paid too much
-  const [nonOverPayersShare, setNonOverPayersShare] = useState([]); // amount each non-overpayer has to pay to each overpayer
+  const [nonOverPayersShare, setNonOverPayersShare] = useState([]); // amount each non-overpayer owes each overpayer
+  const [share, setShare] = useState(0); // share per person
 
-  const [splitResult, setSplitResult] = useState([]); // result of split
-  const [share, setShare] = useState(0); // share pr. person
-
-  // find deltagere der der skal deles med og ikke har lagt ud.
+  // handle the selection of participants (excluding expositors)
   const handlePersonToggle = (person) => {
     if (selectedParticipants.includes(person)) {
-      // Hvis personen allerede er valgt, fjern personen fra listen
+      // if the person is already selected, remove the person from the list
       setSelectedParticipants(selectedParticipants.filter((f) => f !== person));
     } else {
-      // Hvis personen ikke er valgt, tilføj personen til listen
       setSelectedParticipants([...selectedParticipants, person]);
     }
   };
 
-  // find alle involverede personer
+  // find all participants involved
   const getAllPeople = (payers, selected) => {
     return [...payers, ...selected];
   };
 
-  // find hver persons andel af udgifterne
+  // find each participants share
   const calculateShare = (totalAmount, payers, selected) => {
     // if zero non-payers are selected, split between all payers
     if (selected.length === 0) {
@@ -43,7 +40,7 @@ const EventDetails = () => {
     }
   };
 
-  // find dem der har betalt for meget
+  // find participants who have paid more than their share
   const findOverPayers = (allPeople, event, share) => {
     return allPeople.filter((person) => {
       const personExpenses = event.expenses.filter((e) => e.payer === person);
@@ -57,7 +54,7 @@ const EventDetails = () => {
     });
   };
 
-  // find ud af hvor meget hver person har betalt for meget
+  // find the amount each overpayer has paid too much
   const calculateOverPayersAmount = (overPayers, share, event) => {
     return overPayers.map((person) => {
       const personExpenses = event.expenses.filter((e) => e.payer === person);
@@ -70,37 +67,36 @@ const EventDetails = () => {
     });
   };
 
-  // find dem der ikke har betalt for meget
-  // mangler et tjek i tilfælde af at person har betalt sin andel
-  // måske et anden navn? Det handler jo om at betale sin andel
+  // NOTE - what happens if a person has paid exactly their share? This could be a problem
+  // find the participants who have not paid their share or more
   const findNonOverPayers = (allPeople, overPayers) => {
     return allPeople.filter((person) => {
       return !overPayers.includes(person);
     });
   };
 
+  // handle the exact split of the expenses
+  // all the logs are currently for testing and guidance
   const handleSplit = () => {
-    // se alle udlæggere
     console.log("payers: " + payers);
 
-    // se alle deltagere
+    // get all participants
     const allParticipants = getAllPeople(payers, selectedParticipants);
     console.log("all partisipants: " + allParticipants);
 
-    // se fulde udgiftsbeløb
     console.log("total amount: " + totalAmount);
 
-    // find udgift pr. person
+    // calculate share
     const share = calculateShare(totalAmount, payers, selectedParticipants);
     setShare(share);
     console.log("share: " + share);
 
-    // se dem der har betalt for meget
+    // find overpayers
     const overPayers = findOverPayers(allParticipants, event, share);
     console.log("overpayers: " + overPayers);
     setOverPayers(overPayers);
 
-    // se hvor meget hver overpayer har betalt for meget
+    // find overpayers amount
     const overPayersAmount = calculateOverPayersAmount(
       overPayers,
       share,
@@ -109,12 +105,12 @@ const EventDetails = () => {
     setOverPayersAmount(overPayersAmount);
     console.log("overpayers amount: " + overPayersAmount);
 
-    // se dem der ikke er overpayers
+    // find nonoverpayers ("debtors")
     const nonOverPayers = findNonOverPayers(allParticipants, overPayers);
     setNonOverPayers(nonOverPayers);
     console.log("non overpayers: " + nonOverPayers);
 
-    // se nonover beløb til overpayers
+    // find nonoverpayers share
     const nonOverPayersShare = overPayersAmount.map((amount) => {
       return amount / nonOverPayers.length;
     });
@@ -173,39 +169,34 @@ const EventDetails = () => {
         </div>
         <div className="due-amount">
           <h3>Opdeling:</h3>
-          <p>Hver deltager skal betale nedenstående beløb til udlægger</p>
-          {/* Gennemløb overpayers amount og vis hvad de skyldes ud for deres navn */}
           {overPayers.length > 0 && (
-            <div>
-              <h4>Overpayers:</h4>
+            <div className="due-amount-owed">
               <ul>
                 {overPayers.map((overPayer, index) => (
                   <li key={index}>
-                    {overPayer} skal modtage:{" "}
-                    {overPayersAmount[index].toFixed(2)} kr.
+                    <div className="due-amount-owed">
+                      {overPayer} skal modtage:{" "}
+                      {overPayersAmount[index].toFixed(2)} kr.
+                    </div>
                   </li>
                 ))}
               </ul>
             </div>
           )}
-          <h3>Manglende betaling</h3>
-          {/* Her skal der vises hvor meget hver nonOverPayer skal betale til hver OverPayer */}
-
           {nonOverPayers.length > 0 && overPayers.length > 0 && (
-            // Check om der er både nonOverPayers og overPayers for at vise opdelingen
             <div>
+              <h3>Manglende betaling</h3>
+              {/* iterate over nonOverPayers to show the amount owed */}
               {nonOverPayers.map((nonOverPayer, nonIndex) => (
-                // Gennemløb nonOverPayers for at vise betalingen for hver nonOverPayer
                 <div key={nonIndex}>
-                  <h4>{nonOverPayer} skal betale til:</h4>
-                  {/* Lav en liste af OverPayers, som nonOverPayer skal betale til */}
+                  <h4>{nonOverPayer} skal betale:</h4>
+                  {/* list of OverPayers and their respected "debtors" */}
                   <ul>
                     {overPayers.map((overPayer, overIndex) => (
-                      // Gennemløb overPayers for at vise det specifikke beløb for hvert par
+                      // iterate over overPayers to show the amount owed to each overPayer
                       <li key={overIndex}>
                         {overPayer} - {nonOverPayersShare[overIndex].toFixed(2)}{" "}
                         kr.
-                        {/* Vis det specifikke beløb fra nonOverPayersShare for det pågældende par */}
                       </li>
                     ))}
                   </ul>
