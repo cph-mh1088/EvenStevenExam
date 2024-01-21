@@ -112,8 +112,37 @@ const EventDetails = () => {
 
     // find nonoverpayers share
     const nonOverPayersShare = overPayersAmount.map((amount) => {
+      // Find ud af hvem der har betalt noget, og hvem der har intet betalt
+      const paidSomething = nonOverPayers
+        .map((person) => {
+          const personExpenses = event.expenses.filter(
+            (e) => e.payer === person
+          );
+          const personTotal = personExpenses.reduce(
+            (acc, cur) => acc + cur.amount,
+            0
+          );
+          console.log("personTotal for " + person + ": " + personTotal);
+
+          // Returner et objekt med personens navn og det beløb, de har betalt
+          return { person, personTotal };
+        })
+        .filter((item) => item.personTotal > 0); // Filtrer kun dem, der har betalt noget
+
+      console.log("paidSomething: ", paidSomething);
+
+      // Hvis de har betalt noget, find ud af hvor meget de mangler, før de har betalt deres share
+      paidSomething.forEach((paid) => {
+        const remainingPayment = share - paid.personTotal;
+        console.log(`${paid.person} mangler at betale: ${remainingPayment}`);
+      });
+
+      // Hvis de ikke har betalt noget, skal de betale hele deres share
+
+      // Beregn andelen for den aktuelle person
       return amount / nonOverPayers.length;
     });
+
     setNonOverPayersShare(nonOverPayersShare);
     console.log("non overpayers share: " + nonOverPayersShare);
   };
