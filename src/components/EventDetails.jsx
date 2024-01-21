@@ -158,7 +158,7 @@ const EventDetails = () => {
             medregnet.
           </p>
           <div className="people-share-container">
-            {event.friends.map((friend) => (
+            {event.participants.map((friend) => (
               <div key={friend}>
                 <label>
                   <input

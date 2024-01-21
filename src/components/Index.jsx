@@ -17,7 +17,7 @@ const Index = () => {
     const timeout = setTimeout(() => {
       setShowMessage(false);
       setShowError(false);
-    }, 4000);
+    }, 5000);
 
     // clean up function by unmount or dependency change
     return () => clearTimeout(timeout);
@@ -32,8 +32,10 @@ const Index = () => {
   };
 
   const handleAddExpense = () => {
-    if (amount === "" || description === "") {
-      setErrorMessage("En udgift skal have en beskrivelse og et beløb");
+    if (amount === "" || description === "" || selectedOption === "") {
+      setErrorMessage(
+        "En udgift skal have en udlægger, beskrivelse og et beløb"
+      );
       setShowError(true);
       return;
     }

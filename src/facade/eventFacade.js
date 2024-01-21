@@ -8,7 +8,7 @@ function eventFacade() {
         { description: "Drikke", amount: 20.0, payer: "Mikkel" },
       ],
       totalAmount: 70,
-      friends: ["Far", "Mor", "Ida", "Maria", "Laura", "Mikkel"],
+      participants: ["Far", "Mor", "Ida", "Maria", "Laura", "Mikkel"],
     },
   ];
 
@@ -23,26 +23,16 @@ function eventFacade() {
   };
 
   const addEvent = (event) => {
-    try {
-      event.id = nextId;
-      nextId++;
-      event.friends = ["Far", "Mor", "Ida", "Maria", "Laura", "Mikkel"];
-      events.push(event);
+    event.id = nextId;
+    nextId++;
+    event.participants = ["Far", "Mor", "Ida", "Maria", "Laura", "Mikkel"];
+    events.push(event);
 
-      // Beregn totalbeløbet for begivenheden
-      const totalExpenseAmount = event.expenses.reduce(
-        (acc, expense) => acc + parseFloat(expense.amount),
-        0
-      );
-
-      if (isNaN(totalExpenseAmount)) {
-        throw new Error("Invalid expense amount");
-      }
-
-      event.totalAmount = parseFloat(totalExpenseAmount.toFixed(2));
-    } catch (error) {
-      console.error(error);
-    }
+    const totalExpenseAmount = event.expenses.reduce(
+      (acc, expense) => acc + parseFloat(expense.amount),
+      0
+    );
+    event.totalAmount = parseFloat(totalExpenseAmount.toFixed(2));
   };
 
   return {
