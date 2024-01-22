@@ -15,7 +15,7 @@ const EventDetails = () => {
   const [nonOverPayersShare, setNonOverPayersShare] = useState([]); // amount each non-overpayer owes each overpayer
   const [share, setShare] = useState(0); // share per person
 
-  // handle the selection of participants (excluding expositors)
+  // handle the selection of participants
   const handlePersonToggle = (person) => {
     if (selectedParticipants.includes(person)) {
       // if the person is already selected, remove the person from the list
@@ -75,6 +75,45 @@ const EventDetails = () => {
     });
   };
 
+  // Define the function outside the component
+  const calculateNonOverPayersShare = (
+    nonOverPayers,
+    overPayersAmount,
+    share,
+    event
+  ) => {
+    return overPayersAmount.map((amount) => {
+      // Find ud af hvem der har betalt noget, og hvem der har intet betalt
+      const paidSomething = nonOverPayers.map((person) => {
+        // Find udgifter for hver person
+        const personExpenses = event.expenses.filter((e) => e.payer === person);
+        // find samlede udgifter for hver person
+        const personTotal = personExpenses.reduce(
+          (acc, cur) => acc + cur.amount,
+          0
+        );
+
+        // print udgifter for hver person
+        console.log("personTotal for " + person + ": " + personTotal);
+
+        // Returner et objekt med personens navn og det beløb, de har betalt
+        return { person, personTotal };
+      });
+
+      // print status for hver person
+      console.log("paidSomething: ", paidSomething);
+
+      // Hvis de har betalt noget, find ud af hvor meget de mangler, før de har betalt deres share
+      paidSomething.forEach((paid) => {
+        const remainingPayment = share - paid.personTotal;
+        console.log(`${paid.person} mangler at betale: ${remainingPayment}`);
+        return remainingPayment;
+      });
+
+      return amount / nonOverPayers.length;
+    });
+  };
+
   // handle the exact split of the expenses
   // all the logs are currently for testing and guidance
   const handleSplit = () => {
@@ -110,39 +149,13 @@ const EventDetails = () => {
     setNonOverPayers(nonOverPayers);
     console.log("non overpayers: " + nonOverPayers);
 
-    // find nonoverpayers share
-    const nonOverPayersShare = overPayersAmount.map((amount) => {
-      // Find ud af hvem der har betalt noget, og hvem der har intet betalt
-      const paidSomething = nonOverPayers
-        .map((person) => {
-          const personExpenses = event.expenses.filter(
-            (e) => e.payer === person
-          );
-          const personTotal = personExpenses.reduce(
-            (acc, cur) => acc + cur.amount,
-            0
-          );
-          console.log("personTotal for " + person + ": " + personTotal);
-
-          // Returner et objekt med personens navn og det beløb, de har betalt
-          return { person, personTotal };
-        })
-        .filter((item) => item.personTotal > 0); // Filtrer kun dem, der har betalt noget
-
-      console.log("paidSomething: ", paidSomething);
-
-      // Hvis de har betalt noget, find ud af hvor meget de mangler, før de har betalt deres share
-      paidSomething.forEach((paid) => {
-        const remainingPayment = share - paid.personTotal;
-        console.log(`${paid.person} mangler at betale: ${remainingPayment}`);
-      });
-
-      // Hvis de ikke har betalt noget, skal de betale hele deres share
-
-      // Beregn andelen for den aktuelle person
-      return amount / nonOverPayers.length;
-    });
-
+    // find nonoverpayers share using the extracted function
+    const nonOverPayersShare = calculateNonOverPayersShare(
+      nonOverPayers,
+      overPayersAmount,
+      share,
+      event
+    );
     setNonOverPayersShare(nonOverPayersShare);
     console.log("non overpayers share: " + nonOverPayersShare);
   };
@@ -222,7 +235,7 @@ const EventDetails = () => {
                   <h4>{nonOverPayer} skal betale:</h4>
                   {/* list of OverPayers and their respected "debtors" */}
                   <div className="overpayers-list">
-                    {overPayers.map((overPayer, overIndex) => (
+                    {/* {overPayers.map((overPayer, overIndex) => (
                       // iterate over overPayers to show the amount owed to each overPayer
                       <div key={overIndex} className="overpayer-amount">
                         {overPayer}:{" "}
@@ -230,7 +243,7 @@ const EventDetails = () => {
                           {nonOverPayersShare[overIndex].toFixed(2)} kr.
                         </span>
                       </div>
-                    ))}
+                    ))} */}
                   </div>
                 </div>
               ))}
