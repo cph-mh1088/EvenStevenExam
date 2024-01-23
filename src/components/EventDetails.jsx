@@ -181,8 +181,6 @@ const EventDetails = () => {
       "non overpayers remaining amount: " + nonOverPayersRemainingAmount
     );
     setNonOverPayersShare(nonOverPayersRemainingAmount);
-
-    console.log("overpayers: " + getPeopleAndAmount(allParticipants, event));
   };
 
   return (
