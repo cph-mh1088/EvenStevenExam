@@ -29,22 +29,6 @@ const EventDetails = () => {
     return [...payers, ...selected];
   };
 
-  // lav et objekt at alle involdverede og hvor meget de har betalt
-  const getPeopleAndAmount = (allPeople, event) => {
-    // gennemløb alle personer
-    return allPeople.map((person) => {
-      // find udgifter for hver person
-      const personExpenses = event.expenses.filter((e) => e.payer === person);
-      // find samlede udgifter for hver person
-      const personTotal = personExpenses.reduce(
-        (acc, cur) => acc + cur.amount,
-        0
-      );
-      // returner et objekt med personens navn og det beløb, de har betalt
-      return { person, personTotal };
-    });
-  };
-
   // find hver persons andel
   const calculateShare = (totalAmount, payers, selected) => {
     // hvis ingen valgte delagere er valgt, del kun imellem udlæggere
@@ -88,7 +72,7 @@ const EventDetails = () => {
     });
   };
 
-  // find dem der ikke har betalt noget, mindre end eller præcis deres andel
+  // find alle nonOverPayers (betalt intet, mindre end eller præcis deres andel)
   const findNonOverPayers = (allPeople, overPayers) => {
     return allPeople.filter((person) => {
       return !overPayers.includes(person);
@@ -124,7 +108,7 @@ const EventDetails = () => {
     // print status for hver person
     console.log("paidSomething: ", paidSomething);
 
-    // Hvis de har betalt noget, find ud af hvor meget de mangler, før de har betalt deres share
+    // find ud af hvad hver nonOverPayer mangler før de har betalt deres andel
     paidSomething.forEach((paid) => {
       // find ud af hvor meget hver person mangler at betale
       const remainingPayment = share - paid.personTotal;
@@ -251,20 +235,29 @@ const EventDetails = () => {
               ))}
             </div>
           )}
-          {nonOverPayers.length > 0 && (
-            <div className="missing-payment-container">
-              <div className="overpayers-list">
-                {nonOverPayers.map((nonOverPayer, index) => (
-                  <div key={index} className="overpayer-amount">
-                    {nonOverPayer} mangler at betale:{" "}
-                    <span style={{ color: "#ed6464" }}>
-                      {nonOverPayersShare[index].toFixed(2)} kr.
-                    </span>
-                  </div>
-                ))}
+          <div className="due-amount-owed-container">
+            {/* Gennemløb hver nonOverPayer */}
+            {nonOverPayers.map((nonOverPayer, nonOverPayerIndex) => (
+              <div key={nonOverPayerIndex} className="due-amount-owed">
+                {/* Opret en ul for at vise beløbet for hver overPayer */}
+                <ul>
+                  {overPayersAmount.map((amount, overPayerIndex) => (
+                    <li key={overPayerIndex}>
+                      {nonOverPayer} mangler at betale{" "}
+                      <span style={{ color: "#ed6464" }}>
+                        {(
+                          nonOverPayersShare[nonOverPayerIndex] *
+                          (amount / overPayersAmount.reduce((a, b) => a + b, 0))
+                        ).toFixed(2)}{" "}
+                      </span>{" "}
+                      kr. til {overPayers[overPayerIndex]}
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
-          )}
+            ))}
+          </div>
+
           <br />
         </div>
       </main>
