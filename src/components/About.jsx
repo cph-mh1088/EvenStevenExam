@@ -20,7 +20,7 @@ const About = () => {
       <br />
 
       <h2>Hvorfor eksisterer EvenSteven?</h2>
-      <p>EvenSteven er skabt for sjov, som en del af et skoleprojekt.</p>
+      <p>EvenSteven er skabt for sjov som en del af et skoleprojekt</p>
       <br />
     </div>
   );

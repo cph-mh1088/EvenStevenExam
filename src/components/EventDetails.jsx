@@ -224,7 +224,7 @@ const EventDetails = () => {
             </p>
           </div>
           {overPayers.length > 0 && (
-            <div className="due-amount-owed-container">
+            <div className="account">
               {overPayers.map((overPayer, index) => (
                 <div key={index} className="due-amount-owed">
                   {overPayer} skal modtage:{" "}
@@ -239,11 +239,11 @@ const EventDetails = () => {
             {/* Gennemløb hver nonOverPayer */}
             {nonOverPayers.map((nonOverPayer, nonOverPayerIndex) => (
               <div key={nonOverPayerIndex} className="due-amount-owed">
-                {/* Opret en ul for at vise beløbet for hver overPayer */}
                 <ul>
+                  {nonOverPayer}
                   {overPayersAmount.map((amount, overPayerIndex) => (
                     <li key={overPayerIndex}>
-                      {nonOverPayer} mangler at betale{" "}
+                      {nonOverPayer} skal betale{" "}
                       <span style={{ color: "#ed6464" }}>
                         {(
                           nonOverPayersShare[nonOverPayerIndex] *
@@ -257,7 +257,6 @@ const EventDetails = () => {
               </div>
             ))}
           </div>
-
           <br />
         </div>
       </main>
