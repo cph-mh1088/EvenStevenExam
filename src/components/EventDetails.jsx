@@ -235,29 +235,32 @@ const EventDetails = () => {
               ))}
             </div>
           )}
-          <div className="due-amount-owed-container">
-            {/* Gennemløb hver nonOverPayer */}
-            {nonOverPayers.map((nonOverPayer, nonOverPayerIndex) => (
-              <div key={nonOverPayerIndex} className="due-amount-owed">
-                <ul>
-                  {nonOverPayer}
-                  {overPayersAmount.map((amount, overPayerIndex) => (
-                    <li key={overPayerIndex}>
-                      {nonOverPayer} skal betale{" "}
-                      <span style={{ color: "#ed6464" }}>
-                        {(
-                          nonOverPayersShare[nonOverPayerIndex] *
-                          (amount / overPayersAmount.reduce((a, b) => a + b, 0))
-                        ).toFixed(2)}{" "}
-                      </span>{" "}
-                      kr. til {overPayers[overPayerIndex]}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-          <br />
+          {overPayers.length > 0 && (
+            <div className="due-amount-owed-container">
+              {/* Gennemløb hver nonOverPayer */}
+              {nonOverPayers.map((nonOverPayer, nonOverPayerIndex) => (
+                <div key={nonOverPayerIndex} className="due-amount-owed">
+                  <ul className="custom-list">
+                    <li className="bold-item">{nonOverPayer} skylder: </li>
+                    <br />
+                    {overPayersAmount.map((amount, overPayerIndex) => (
+                      <li key={overPayerIndex}>
+                        {overPayers[overPayerIndex]}:{" "}
+                        <span style={{ color: "#ed6464" }}>
+                          {(
+                            nonOverPayersShare[nonOverPayerIndex] *
+                            (amount /
+                              overPayersAmount.reduce((a, b) => a + b, 0))
+                          ).toFixed(2)}{" "}
+                          kr.
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </main>
     </div>

@@ -1,5 +1,3 @@
-/* <--   general styling   --> */
-
 #root {
   text-align: center;
 }
@@ -9,6 +7,7 @@
   text-align: left;
   color: #6495ed;
   cursor: pointer;
+  padding-left: 2%;
 }
 
 footer {
@@ -124,10 +123,6 @@ footer {
   padding: 1%;
 }
 
-.expense-pr-person {
-  border: 2px solid black;
-}
-
 .people-share-container {
   display: flex;
   flex-direction: row;
@@ -150,4 +145,14 @@ footer {
 
 .due-amount-owed-container {
   border-top: 2px solid black;
+}
+
+.custom-list {
+  list-style: none;
+  text-align: center;
+  padding: 0;
+}
+
+.bold-item {
+  font-weight: bold;
 }
