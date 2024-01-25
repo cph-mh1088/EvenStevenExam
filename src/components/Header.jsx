@@ -9,12 +9,10 @@ const Header = ({ title }) => {
   };
 
   return (
-    <div className="header">
-      <header>
-        <h1 className="header-text" onClick={handleHeaderTextClick}>
-          {title}
-        </h1>
-      </header>
+    <div>
+      <h1 className="header-text" onClick={handleHeaderTextClick}>
+        {title}
+      </h1>
     </div>
   );
 };

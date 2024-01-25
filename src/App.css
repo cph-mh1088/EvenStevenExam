@@ -2,12 +2,42 @@
   text-align: center;
 }
 
+.header {
+  display: flex;
+  align-items: center;
+}
+
 .header-text {
   width: 7%; /* assures that only the text part of the header is clickable */
   text-align: left;
   color: #6495ed;
   cursor: pointer;
   padding-left: 2%;
+}
+
+.header-mode-toggle {
+  margin-left: auto;
+  margin-right: 2%;
+}
+
+/* Light mode styles */
+.header.light-mode {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Dark mode styles */
+.header.dark-mode {
+  background-color: #333;
+  color: #fff;
+}
+
+/* should cover most current smartphones in portrait mode */
+@media only screen and (max-width: 480px) {
+  .header-text {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 footer {
@@ -123,11 +153,39 @@ footer {
   padding: 1%;
 }
 
+/* checkbox */
 .people-share-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: auto;
+}
+
+.checkbox-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  border: 2px solid #6495ed;
+  border-radius: 5px;
+  width: 20px; /* width of the checkbox */
+  height: 20px; /* height of the checkbox */
+  cursor: pointer;
+  background-color: white;
+  transform: scale(1.5);
+}
+
+input[type="checkbox"]:checked,
+input[type="checkbox"]:disabled {
+  background-color: #6495ed;
+  border-color: #6495ed;
+  color: white;
 }
 
 .due-amount-owed {
@@ -153,6 +211,7 @@ footer {
   padding: 0;
 }
 
-.bold-item {
+.bold-debitor {
   font-weight: bold;
+  border-bottom: dashed 1px black;
 }

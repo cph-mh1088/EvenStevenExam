@@ -110,7 +110,7 @@ const Index = () => {
   };
 
   return (
-    <div>
+    <div className="tooltip">
       <main>
         <br />
         <h2>Her kan du tilføje en begivenhed med tilhørende udgifter</h2>
@@ -178,6 +178,7 @@ const Index = () => {
             ))}
           </div>
         </div>
+        {showError && <p style={{ color: "red" }}>{errorMessage}</p>}
         <div className="total-amount-bar">
           <p>Samlede udgifter: {totalAmount.toFixed(2)} kr.</p>
         </div>
@@ -192,7 +193,6 @@ const Index = () => {
         <Link to="/begivenheder" className="event-link">
           Begivenheder
         </Link>
-        {showError && <p style={{ color: "red" }}>{errorMessage}</p>}
         {showMessage ? (
           <p style={{ color: "green" }}>Begivenhed tilføjet!</p>
         ) : null}

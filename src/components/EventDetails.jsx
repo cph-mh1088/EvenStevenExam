@@ -173,13 +173,9 @@ const EventDetails = () => {
         <h2 className="event-name">{event.name}</h2>
         <div className="participant-checkbox">
           <h4>Vælg dem du vil dele udgifterne med</h4>
-          <p>
-            OBS man ikke kan vælge dem der har lagt ud. De er allerede
-            medregnet.
-          </p>
           <div className="people-share-container">
             {event.participants.map((friend) => (
-              <div key={friend}>
+              <div key={friend} className="checkbox-item">
                 <label>
                   <input
                     type="checkbox"
@@ -187,6 +183,7 @@ const EventDetails = () => {
                     onChange={() => handlePersonToggle(friend)}
                     disabled={event.expenses.some((e) => e.payer === friend)}
                   />
+                  <br />
                   {friend}
                 </label>
               </div>
@@ -212,7 +209,6 @@ const EventDetails = () => {
           Del beløb
         </button>
         <br /> <br />
-        {/* Efter knappen "Del beløb" */}
         <div className="due-amount">
           <h3>Regnskab</h3>
           <div className="share-per-person">
@@ -237,11 +233,10 @@ const EventDetails = () => {
           )}
           {overPayers.length > 0 && (
             <div className="due-amount-owed-container">
-              {/* Gennemløb hver nonOverPayer */}
               {nonOverPayers.map((nonOverPayer, nonOverPayerIndex) => (
-                <div key={nonOverPayerIndex} className="due-amount-owed">
+                <div key={nonOverPayerIndex}>
                   <ul className="custom-list">
-                    <li className="bold-item">{nonOverPayer} skylder: </li>
+                    <li className="bold-debitor">{nonOverPayer} skylder: </li>
                     <br />
                     {overPayersAmount.map((amount, overPayerIndex) => (
                       <li key={overPayerIndex}>
