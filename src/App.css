@@ -20,18 +20,6 @@
   margin-right: 2%;
 }
 
-/* Light mode styles */
-.header.light-mode {
-  background-color: #fff;
-  color: #000;
-}
-
-/* Dark mode styles */
-.header.dark-mode {
-  background-color: #333;
-  color: #fff;
-}
-
 /* should cover most current smartphones in portrait mode */
 @media only screen and (max-width: 480px) {
   .header-text {
