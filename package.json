@@ -1,6 +1,6 @@
 {
   "name": "vite-project",
-  "private": false,
+  "private": private,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
