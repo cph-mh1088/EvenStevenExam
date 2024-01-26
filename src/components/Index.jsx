@@ -1,6 +1,6 @@
-import eventFacade from "/src/facade/eventFacade.js";
 import { useState, useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
+import eventFacade from "/src/facade/eventFacade.js";
 
 const Index = () => {
   const [amount, setAmount] = useState(""); // ongoing amount
@@ -24,7 +24,11 @@ const Index = () => {
   }, [showMessage, showError]);
 
   const handleAmountChange = (event) => {
-    setAmount(event.target.value);
+    // regex to limit input to 2 decimals
+    const regex = /^\d+(\.\d{0,2})?$/;
+    if (regex.test(event.target.value) || event.target.value === "") {
+      setAmount(event.target.value);
+    }
   };
 
   const handleDropdownChange = (event) => {
@@ -110,7 +114,7 @@ const Index = () => {
   };
 
   return (
-    <div className="tooltip">
+    <div className="index-page">
       <main>
         <br />
         <h2>Her kan du tilføje en begivenhed med tilhørende udgifter</h2>
@@ -151,7 +155,7 @@ const Index = () => {
         <br />
         <input
           id="amountInput"
-          type="number"
+          type="text"
           placeholder="Indtast beløb"
           value={amount}
           onChange={handleAmountChange}
@@ -183,7 +187,6 @@ const Index = () => {
           <p>Samlede udgifter: {totalAmount.toFixed(2)} kr.</p>
         </div>
         <br />
-        <br />
         <form onSubmit={handleFormSubmit}>
           <button type="submit" className="add-event-button">
             Gem begivenhed
@@ -197,8 +200,6 @@ const Index = () => {
           <p style={{ color: "green" }}>Begivenhed tilføjet!</p>
         ) : null}
       </main>
-      <br />
-      <br />
       <footer>
         <Link to={"/om"} className="about-link">
           Om EvenSteven

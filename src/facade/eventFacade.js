@@ -4,10 +4,11 @@ function eventFacade() {
       id: 1,
       name: "Eksempel",
       expenses: [
-        { description: "Mad", amount: 50.0, payer: "Far" },
-        { description: "Drikke", amount: 20.0, payer: "Mikkel" },
+        { description: "Smørrebrød", amount: 200.0, payer: "Far" },
+        { description: "Kage", amount: 100.0, payer: "Mor" },
+        { description: "Blomster", amount: 50.0, payer: "Ida" },
       ],
-      totalAmount: 70,
+      totalAmount: 350,
       participants: ["Far", "Mor", "Ida", "Maria", "Laura", "Mikkel"],
     },
   ];

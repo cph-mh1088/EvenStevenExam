@@ -15,9 +15,8 @@
   padding-left: 2%;
 }
 
-.header-mode-toggle {
-  margin-left: auto;
-  margin-right: 2%;
+.header-text-even {
+  color: #927bb0;
 }
 
 /* should cover most current smartphones in portrait mode */
@@ -28,10 +27,24 @@
   }
 }
 
+.index-page h2,
+.events h2,
+.event-name,
+.expenselist h2,
+.due-amount h2,
+.about-page h2 {
+  color: #6495ed;
+}
+
 footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   text-align: center;
   background-color: #6495ed;
-  padding: 2%;
+  padding-top: 2%;
+  padding-bottom: 2%;
 }
 
 .add-expense-button:hover,
@@ -118,14 +131,6 @@ footer {
 }
 
 /* <--   /events/event/{id}   --> */
-
-.expenselist h4,
-.due-amount h3,
-.event-name {
-  color: #6495ed;
-  font-size: 1.5em;
-  margin-bottom: 1%;
-}
 
 .expense-list {
   background-color: #f2f2f2;

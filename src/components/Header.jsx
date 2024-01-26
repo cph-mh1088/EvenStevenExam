@@ -1,5 +1,5 @@
-import "../App.css";
 import { useNavigate } from "react-router-dom";
+import "../App.css";
 
 const Header = ({ title }) => {
   const navigate = useNavigate();
@@ -11,7 +11,8 @@ const Header = ({ title }) => {
   return (
     <div>
       <h1 className="header-text" onClick={handleHeaderTextClick}>
-        {title}
+        <span className="header-text-even">{title.slice(0, 4)}</span>
+        <span className="header-text-steven">{title.slice(4)}</span>
       </h1>
     </div>
   );

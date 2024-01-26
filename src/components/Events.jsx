@@ -1,6 +1,6 @@
-import eventFacade from "/src/facade/eventFacade.js";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import eventFacade from "/src/facade/eventFacade.js";
 import "../App.css";
 
 const Events = () => {
@@ -16,7 +16,7 @@ const Events = () => {
   }, []);
 
   return (
-    <div>
+    <div className="events">
       <main>
         <br />
         <h2>Begivenheder</h2>
@@ -33,6 +33,11 @@ const Events = () => {
         </div>
       </main>
       <br />
+      <footer>
+        <Link to={"/om"} className="about-link">
+          Om EvenSteven
+        </Link>
+      </footer>
     </div>
   );
 };
