@@ -200,11 +200,6 @@ const Index = () => {
           <p style={{ color: "green" }}>Begivenhed tilføjet!</p>
         ) : null}
       </main>
-      <footer>
-        <Link to={"/om"} className="about-link">
-          Om EvenSteven
-        </Link>
-      </footer>
       <Outlet />
     </div>
   );

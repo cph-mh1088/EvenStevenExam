@@ -246,11 +246,6 @@ const EventDetails = () => {
           )}
         </div>
       </main>
-      <footer>
-        <Link to={"/om"} className="about-link">
-          Om EvenSteven
-        </Link>
-      </footer>
     </div>
   );
 };

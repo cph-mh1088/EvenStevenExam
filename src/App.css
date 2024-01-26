@@ -36,17 +36,6 @@
   color: #6495ed;
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  background-color: #6495ed;
-  padding-top: 2%;
-  padding-bottom: 2%;
-}
-
 .add-expense-button:hover,
 .delete-expense-button:hover,
 .add-event-button:hover,
@@ -102,10 +91,6 @@ footer {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-}
-
-.about-link {
-  color: white;
 }
 
 /* <--   /events   --> */

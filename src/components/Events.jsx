@@ -32,12 +32,6 @@ const Events = () => {
           </div>
         </div>
       </main>
-      <br />
-      <footer>
-        <Link to={"/om"} className="about-link">
-          Om EvenSteven
-        </Link>
-      </footer>
     </div>
   );
 };
